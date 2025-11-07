@@ -1,0 +1,1014 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管道价格查询系统</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Tailwind配置：区分日标/英标/DN视觉风格 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // 英标配色
+                        enMain: '#165DFF',
+                        enLight: '#E6F0FF',
+                        enBorder: '#B3D4FF',
+                        // 日标配色
+                        jpMain: '#FF6B35',
+                        jpLight: '#FFE8D6',
+                        jpBorder: '#FFCCB3',
+                        // DN配色
+                        dnMain: '#36D399',
+                        dnLight: '#E8FFF3',
+                        dnBorder: '#B3F5E5',
+                        neutral: '#6B7280'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .form-focus {
+                @apply focus:ring-2 focus:outline-none transition-all;
+            }
+            .form-shadow {
+                box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.06);
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .en-focus-style {
+                @apply focus:border-enMain focus:ring-enMain/20;
+            }
+            .jp-focus-style {
+                @apply focus:border-jpMain focus:ring-jpMain/20;
+            }
+            .dn-focus-style {
+                @apply focus:border-dnMain focus:ring-dnMain/20;            
+			}
+            .std-tag {
+                @apply px-2 py-1 rounded text-xs font-medium;
+            }
+            .en-tag-style {
+                @apply bg-enLight text-enMain border border-enBorder;
+            }
+            .jp-tag-style {
+                @apply bg-jpLight text-jpMain border border-jpBorder;
+            }
+            .dn-tag-style {
+                @apply bg-dnLight text-dnMain border border-dnBorder;
+            }
+            .row-hover-effect {
+                @apply hover:bg-gray-50 transition-colors duration-200;
+            }
+            .panel-en-style {
+                @apply border-enBorder bg-enLight/30;
+            }
+            .panel-jp-style {
+                @apply border-jpBorder bg-jpLight/30;
+            }
+            .panel-dn-style {
+                @apply border-dnBorder bg-dnLight/30;
+            }
+            .history-item {
+                @apply p-3 border rounded-lg mb-2 hover:shadow-sm transition-all cursor-pointer;
+            }
+            .login-animation {
+                animation: loginFade 0.5s ease forwards;
+            }
+            @keyframes loginFade {
+                from { opacity: 0; transform: scale(0.95); }
+                to { opacity: 1; transform: scale(1); }
+            }
+            .shake {
+                animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+            }
+            @keyframes shake {
+                10%, 90% { transform: translateX(-1px); }
+                20%, 80% { transform: translateX(2px); }
+                30%, 50%, 70% { transform: translateX(-3px); }
+                40%, 60% { transform: translateX(3px); }
+            }
+            .slide-out {
+                animation: slideOut 0.4s ease forwards;
+            }
+            @keyframes slideOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-20px); visibility: hidden; }
+            }
+            .slide-in {
+                animation: slideIn 0.5s ease forwards;
+            }
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800 min-h-screen">
+		<!-- 登录界面 -->
+		<div id="loginScreen" class="min-h-screen flex items-center justify-center p-4 login-animation">
+			<div class="bg-white rounded-xl p-8 w-full max-w-md form-shadow">
+				<div class="text-center mb-6">
+					<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+						<i class="fa fa-pipe text-3xl text-primary"></i>
+					</div>
+					<h1 class="text-2xl font-bold text-dark">管道价格查询系统</h1>
+					<p class="text-gray-500 mt-2">请输入访问密码</p>
+				</div>
+				
+				<form id="loginForm" class="space-y-4">
+					<div>
+						<label for="password" class="block text-sm font-medium text-gray-700 mb-1">访问密码</label>
+						<div class="relative">
+							<input type="password" id="password" 
+								class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:select-focus transition-all-300 pr-10"
+								placeholder="请输入密码" required>
+							<i class="fa fa-lock absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+						</div>
+					</div>
+					
+					<div class="pt-2">
+						<button type="submit" 
+							 class="w-full bg-enMain text-white py-3 rounded-lg hover:bg-enMain/90 transition-all duration-300 font-medium flex items-center justify-center"
+						>
+							<i class="fa fa-sign-in mr-2"></i> 登录系统
+						</button>
+					</div>
+					
+					<p id="errorMsg" class="text-red-500 text-sm text-center hidden mt-2">
+						<i class="fa fa-exclamation-circle mr-1"></i> 密码错误，请重新输入
+					</p>
+				</form>
+				
+				<div class="mt-6 text-center text-xs text-gray-500">
+					系统受保护，仅限授权人员访问 | V8版本
+					<p class="mt-1">关闭页面后需重新登录</p>
+				</div>
+			</div>
+		</div>
+		
+    <!-- 主系统界面 (初始隐藏) -->
+    <div id="mainSystem" class="hidden">
+		<div class="container mx-auto px-4 py-8 max-w-7xl">
+			<!-- 系统标题区 -->
+			<header class="mb-8 text-center">
+				<h1 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-gray-800 mb-2">管道价格查询系统</h1>
+				<div class="flex flex-wrap justify-center gap-2 mt-4">
+				</div>
+			</header>
+
+			<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+				<!-- 左侧：核心功能区 -->
+				<div class="lg:col-span-2 space-y-6">
+					<!-- 核心功能：六级联动选择（调整了钢材类型和外径规格的顺序） -->
+					<div class="bg-white rounded-xl shadow-sm p-6 transform hover:shadow-md transition-all duration-300">
+						<h2 class="text-xl font-semibold mb-6 flex items-center text-gray-800">
+							<i class="fa fa-sliders mr-2"></i>参数选择
+						</h2>
+						
+						<div class="max-w-none grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+							<!-- 1. 标准类型选择 -->
+							<div>
+								<label for="standard-type" class="block text-sm font-medium text-gray-700 mb-1">
+									1. 标准类型 <span class="text-red-500">*</span>
+								</label>
+								<select id="standard-type" name="standard-type" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-focus transition-all" required="">
+									<option value="">请选择标准类型</option>
+									<option value="en" class="en-tag-style">英标</option>
+									<option value="jp" class="jp-tag-style">日标</option>
+									<option value="dn" class="dn-tag-style">DN</option>
+								</select>
+							</div>
+
+							<!-- 2. 管道类型 -->
+							<div>
+								<label for="pipe-type" class="block text-sm font-medium text-gray-700 mb-1">
+									2. 管道类型 <span class="text-red-500">*</span>
+								</label>
+								<select id="pipe-type" name="pipe-type" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-focus transition-all" required="" disabled="">
+									<option value="">请先选标准类型</option>
+								</select>
+							</div>
+ 
+							<!-- 3. 钢材类型（原第5项，现为第3项） -->
+							<div>
+								<label for="steel-type" class="block text-sm font-medium text-gray-700 mb-1">
+									3. 钢材类型 <span class="text-red-500">*</span>
+								</label>
+								<select id="steel-type" name="steel-type" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-focus transition-all" required="" disabled="">
+									<option value="">请先选管道类型</option>
+								</select>
+							</div>
+
+							<!-- 4. 外径规格（原第3项，现为第4项） -->
+							<div>
+								<label for="od-spec" class="block text-sm font-medium text-gray-700 mb-1">
+									4. 外径规格 <span class="text-red-500">*</span>
+								</label>
+								<select id="od-spec" name="od-spec" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-focus transition-all" required="" disabled="">
+									<option value="">请先选钢材类型</option>
+								</select>
+							</div>
+
+							<!-- 5. 壁厚规格 (mm单位) -->
+							<div>
+								<label for="wt-spec" class="block text-sm font-medium text-gray-700 mb-1 min-w-[110px] whitespace-nowrap">
+									5. 壁厚规格 (mm) <span class="text-red-500">*</span>
+								</label>
+								<select id="wt-spec" name="wt-spec" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-focus transition-all" required="" disabled="">
+									<option value="">请先选外径</option>
+								</select>
+							</div>
+
+							<!-- 6. 价格显示 -->
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">
+									6. 最终价格(元)
+								</label>
+								<div id="price-display" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 flex items-center justify-center h-10">
+									<span class="text-gray-500">请完成前五项选择</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- 三标准说明 -->
+						<div class="flex flex-wrap gap-3 text-xs">
+							<span class="std-tag en-tag-style">英标说明：外径单位inch（1/4\"~12\"），壁厚单位mm，1/4\"、3/8\"常用尺寸0.89mm，5/8\"常用尺寸1.24mm</span>
+							<span class="std-tag jp-tag-style">日标说明：外径规格8A~500A，壁厚单位mm，含“坡口处理”工艺备注</span>
+							<span class="std-tag dn-tag-style">DN说明：外径规格DN15~DN200，壁厚单位mm</span>
+						</div>
+					</div>
+
+					<!-- 三标准数据表格（已隐藏表格记录） -->
+					<div class="bg-white rounded-xl shadow-sm p-6 transform hover:shadow-md transition-all duration-300">
+						<div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+							<h2 class="text-xl font-semibold flex items-center text-gray-800">
+								<i class="fa fa-table mr-2"></i>三标准价格全量表（共118条记录）
+							</h2>
+							<!-- 下载功能 -->
+							<div class="mt-4 md:mt-0 flex gap-3">
+								<button id="download-all" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-all flex items-center">
+									<i class="fa fa-download mr-2"></i> 下载全量数据（CSV）
+								</button>
+							</div>
+						</div>
+						<div class="overflow-x-auto">
+							<table class="w-full border-collapse">
+								<thead>
+									<tr class="bg-gray-50">
+										<th class="border border-gray-200 px-4 py-3 text-left text-sm font-medium text-gray-700">序号</th>
+										<th class="border border-gray-200 px-4 py-3 text-left text-sm font-medium text-gray-700">标准类型</th>
+										<th class="border border-gray-200 px-4 py-3 text-left text-sm font-medium text-gray-700">管道类型</th>
+										<th class="border border-gray-200 px-4 py-3 text-left text-sm font-medium text-gray-700">外径规格</th>
+										<th class="border border-gray-200 px-4 py-3 text-left text-sm font-medium text-gray-700">外径(mm)</th>
+										<th class="border border-gray-200 px-4 py-3 text-left text-sm font-medium text-gray-700">壁厚(mm)</th>
+										<th class="border border-gray-200 px-4 py-3 text-left text-sm font-medium text-gray-700">备注</th>
+										<th class="border border-gray-200 px-4 py-3 text-right text-sm font-medium text-gray-700">304AP单价(元)</th>
+										<th class="border border-gray-200 px-4 py-3 text-right text-sm font-medium text-gray-700">304L BA单价(元)</th>
+										<th class="border border-gray-200 px-4 py-3 text-right text-sm font-medium text-gray-700">316L BA单价(元)</th>
+										<th class="border border-gray-200 px-4 py-3 text-right text-sm font-medium text-gray-700">316L EP单价(元)</th>
+									</tr>
+								</thead>
+								<tbody id="full-data-table">
+									<!-- 表格数据已隐藏 -->
+									<tr>
+										<td colspan="11" class="border border-gray-200 px-4 py-8 text-center text-gray-500">
+											<i class="fa fa-info-circle mr-1"></i> 价格全量表记录已隐藏
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- 选中项详情面板 -->
+					<div id="selected-detail-panel" class="border rounded-xl p-6 hidden transform transition-all duration-300 hover:shadow-md">
+						<h3 class="font-bold mb-4 flex items-center" id="detail-panel-title">
+							<i class="fa fa-info-circle mr-2"></i>选中项详情
+						</h3>
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+							<div>
+								<p class="text-sm text-gray-600">标准类型：<span id="detail-standard" class="font-medium text-gray-800">-</span></p>
+								<p class="text-sm text-gray-600 mt-2">管道类型：<span id="detail-type" class="font-medium text-gray-800">-</span></p>
+								<p class="text-sm text-gray-600 mt-2">外径规格：<span id="detail-od-spec" class="font-medium text-gray-800">-</span>（<span id="detail-od-mm" class="font-medium text-gray-800">-</span> mm）</p>
+								<p class="text-sm text-gray-600 mt-2">壁厚：<span id="detail-wt-mm" class="font-medium text-gray-800">-</span> mm</p>
+							</div>
+							<div>
+								<p class="text-sm text-gray-600">备注信息：<span id="detail-remark" class="font-medium text-gray-800">-</span></p>
+								<p class="text-sm text-gray-600 mt-2">选中钢材类型：<span id="detail-steel" class="font-medium">-</span></p>
+								<p class="text-sm text-gray-600 mt-2">对应单价：<span id="detail-price" class="font-bold text-xl">-</span></p>
+								<p class="text-sm text-gray-600 mt-3">数据来源：<span id="detail-source" class="font-medium text-gray-800">-</span></p>
+							</div>
+							<div>
+								<p class="text-sm text-gray-600">同规格其他材质价格：</p>
+								<div class="mt-2 space-y-2 text-sm">
+									<p class="px-2 py-1 rounded border border-gray-200">304AP：<span id="detail-304ap">-</span> 元</p>
+									<p class="px-2 py-1 rounded border border-gray-200">304L BA：<span id="detail-304lba">-</span> 元</p>
+									<p class="px-2 py-1 rounded border border-gray-200">316L BA：<span id="detail-316lba">-</span> 元</p>
+									<p class="px-2 py-1 rounded border border-gray-200">316L EP：<span id="detail-316lep">-</span> 元</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 右侧：历史记录面板 -->
+				<div class="lg:col-span-1">
+					<div class="bg-white rounded-xl shadow-sm p-6 h-full transform hover:shadow-md transition-all duration-300">
+						<div class="flex justify-between items-center mb-4">
+							<h2 class="text-xl font-semibold flex items-center text-gray-800">
+								<i class="fa fa-history mr-2"></i>查询历史记录
+							</h2>
+							<button id="clear-history" class="text-sm text-red-500 hover:text-red-700 transition-colors">
+								<i class="fa fa-trash-o mr-1"></i>清空
+							</button>
+						</div>
+						
+						<div id="history-list" class="space-y-2 max-h-[calc(100vh-320px)] overflow-y-auto pr-2">
+							<!-- 历史记录将在这里动态生成 -->
+							<div class="text-center text-gray-500 py-6">
+								<i class="fa fa-clock-o text-2xl mb-2 block"></i>
+								暂无查询记录
+							</div>
+						</div>
+						
+						<div class="mt-4 pt-4 border-t border-gray-100">
+							<button id="download-history" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all flex items-center justify-center">
+								<i class="fa fa-download mr-2"></i> 导出历史记录
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+    <script>
+        // 整合英标+日标+DN完整数据（壁厚统一使用mm单位）
+        // 英标数据
+        const enPipeData = [
+            // 英标-无缝管道
+            {id:1, std:"英标", stdKey:"en", type:"无缝管道", od:"1/4\"", odMm:"6.35", wtMm:"0.89", remark:"英标无缝", p304AP:15.6, p304LBA:16.9, p316LBA:19.5, p316LEP:48},
+            {id:2, std:"英标", stdKey:"en", type:"无缝管道", od:"1/4\"", odMm:"6.35", wtMm:"1", remark:"英标无缝", p304AP:15.6, p304LBA:16.9, p316LBA:20, p316LEP:51},
+            {id:3, std:"英标", stdKey:"en", type:"无缝管道", od:"3/8\"", odMm:"9.53", wtMm:"0.89", remark:"英标无缝", p304AP:18.2, p304LBA:20.8, p316LBA:24.05, p316LEP:58},
+            {id:4, std:"英标", stdKey:"en", type:"无缝管道", od:"3/8\"", odMm:"9.53", wtMm:"1", remark:"英标无缝", p304AP:19.5, p304LBA:22.1, p316LBA:26, p316LEP:65},
+            {id:5, std:"英标", stdKey:"en", type:"无缝管道", od:"1/2\"", odMm:"12.7", wtMm:"1", remark:"英标无缝", p304AP:22.1, p304LBA:24.7, p316LBA:29.9, p316LEP:null},
+            {id:6, std:"英标", stdKey:"en", type:"无缝管道", od:"1/2\"", odMm:"12.7", wtMm:"1.24", remark:"英标无缝", p304AP:27.3, p304LBA:29.9, p316LBA:35.1, p316LEP:82},
+            {id:7, std:"英标", stdKey:"en", type:"无缝管道", od:"1/2\"", odMm:"12.7", wtMm:"1.65", remark:"英标无缝", p304AP:32.5, p304LBA:35.1, p316LBA:44, p316LEP:107},
+            {id:8, std:"英标", stdKey:"en", type:"无缝管道", od:"5/8\"", odMm:"15.88", wtMm:"1.24", remark:"英标无缝", p304AP:26, p304LBA:33.8, p316LBA:42.9, p316LEP:null},
+            {id:9, std:"英标", stdKey:"en", type:"无缝管道", od:"5/8\"", odMm:"15.88", wtMm:"1.65", remark:"英标无缝", p304AP:33.8, p304LBA:40.3, p316LBA:52, p316LEP:null},
+            {id:10, std:"英标", stdKey:"en", type:"无缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.24", remark:"英标无缝", p304AP:31.2, p304LBA:37.7, p316LBA:48.1, p316LEP:null},
+            {id:11, std:"英标", stdKey:"en", type:"无缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.65", remark:"英标无缝", p304AP:39, p304LBA:49.5, p316LBA:61, p316LEP:161},
+            {id:12, std:"英标", stdKey:"en", type:"无缝管道", od:"1\"", odMm:"25.4", wtMm:"1.24", remark:"英标无缝", p304AP:37.7, p304LBA:48.1, p316LBA:59.8, p316LEP:null},
+            {id:13, std:"英标", stdKey:"en", type:"无缝管道", od:"1\"", odMm:"25.4", wtMm:"1.65", remark:"英标无缝", p304AP:49.4, p304LBA:58.5, p316LBA:75.4, p316LEP:212},
+            {id:14, std:"英标", stdKey:"en", type:"无缝管道", od:"1.25\"", odMm:"31.75", wtMm:"1.65", remark:"英标无缝", p304AP:62.4, p304LBA:76.7, p316LBA:97.5, p316LEP:234},
+            {id:15, std:"英标", stdKey:"en", type:"无缝管道", od:"1.5\"", odMm:"38.1", wtMm:"1.65", remark:"英标无缝", p304AP:75.4, p304LBA:96.2, p316LBA:120.9, p316LEP:350},
+            {id:16, std:"英标", stdKey:"en", type:"无缝管道", od:"2\"", odMm:"50.8", wtMm:"1.65", remark:"英标无缝", p304AP:120.9, p304LBA:127.4, p316LBA:161.2, p316LEP:450},
+            {id:17, std:"英标", stdKey:"en", type:"无缝管道", od:"2.5\"", odMm:"63.5", wtMm:"1.65", remark:"英标无缝", p304AP:162.5, p304LBA:179.4, p316LBA:222.3, p316LEP:650},
+            {id:18, std:"英标", stdKey:"en", type:"无缝管道", od:"3\"", odMm:"76.2", wtMm:"1.65", remark:"英标无缝", p304AP:227.5, p304LBA:235.3, p316LBA:287.3, p316LEP:800},
+            // 英标-有缝管道
+            {id:19, std:"英标", stdKey:"en", type:"有缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.24", remark:"英标有缝", p304AP:19.5, p304LBA:23.4, p316LBA:31.2, p316LEP:70},
+            {id:20, std:"英标", stdKey:"en", type:"有缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.65", remark:"英标有缝", p304AP:24.7, p304LBA:28.6, p316LBA:40.3, p316LEP:83},
+            {id:21, std:"英标", stdKey:"en", type:"有缝管道", od:"1\"", odMm:"25.4", wtMm:"1.24", remark:"英标有缝", p304AP:24.7, p304LBA:27.3, p316LBA:39, p316LEP:85},
+            {id:22, std:"英标", stdKey:"en", type:"有缝管道", od:"1\"", odMm:"25.4", wtMm:"1.65", remark:"英标有缝", p304AP:32.5, p304LBA:36.4, p316LBA:52, p316LEP:105},
+            {id:23, std:"英标", stdKey:"en", type:"有缝管道", od:"1.25\"", odMm:"31.75", wtMm:"1.65", remark:"英标有缝", p304AP:37.7, p304LBA:42.9, p316LBA:62.4, p316LEP:138},
+            {id:24, std:"英标", stdKey:"en", type:"有缝管道", od:"1.5\"", odMm:"38.1", wtMm:"1.65", remark:"英标有缝", p304AP:45.5, p304LBA:52, p316LBA:74.1, p316LEP:161},
+            {id:25, std:"英标", stdKey:"en", type:"有缝管道", od:"2\"", odMm:"50.8", wtMm:"1.65", remark:"英标有缝", p304AP:59.8, p304LBA:67.6, p316LBA:98.8, p316LEP:190},
+            {id:26, std:"英标", stdKey:"en", type:"有缝管道", od:"2.5\"", odMm:"63.5", wtMm:"1.65", remark:"英标有缝", p304AP:75.4, p304LBA:87.1, p316LBA:124.8, p316LEP:441},
+            {id:27, std:"英标", stdKey:"en", type:"有缝管道", od:"3\"", odMm:"76.2", wtMm:"1.65", remark:"英标有缝", p304AP:89.7, p304LBA:102.7, p316LBA:149.5, p316LEP:469.5},
+            {id:28, std:"英标", stdKey:"en", type:"有缝管道", od:"4\"", odMm:"101.6", wtMm:"2.11", remark:"英标有缝", p304AP:169, p304LBA:191.1, p316LBA:270.4, p316LEP:591},
+            {id:29, std:"英标", stdKey:"en", type:"有缝管道", od:"5\"", odMm:"127", wtMm:"2.77", remark:"英标有缝", p304AP:254.8, p304LBA:299, p316LBA:421.2, p316LEP:775.5},
+            {id:30, std:"英标", stdKey:"en", type:"有缝管道", od:"6\"", odMm:"152.4", wtMm:"2.77", remark:"英标有缝", p304AP:301.6, p304LBA:354.9, p316LBA:501.8, p316LEP:873},
+            {id:31, std:"英标", stdKey:"en", type:"有缝管道", od:"8\"", odMm:"203.2", wtMm:"2.77", remark:"英标有缝", p304AP:395.2, p304LBA:466.7, p316LBA:664.3, p316LEP:1068},
+            {id:32, std:"英标", stdKey:"en", type:"有缝管道", od:"10\"", odMm:"254", wtMm:"3.65", remark:"英标有缝", p304AP:631.8, p304LBA:750.1, p316LBA:1076.4, p316LEP:1563},
+            {id:33, std:"英标", stdKey:"en", type:"有缝管道", od:"12\"", odMm:"304.8", wtMm:"3.8", remark:"英标有缝", p304AP:772.2, p304LBA:933.4, p316LBA:1340.3, p316LEP:1881}
+        ];
+
+        // 日标数据
+        const jpPipeData = [
+            // 日标-无缝管道
+            {id:35, std:"日标", stdKey:"jp", type:"无缝管道", od:"8A", odMm:"13.8", wtMm:"1.2", remark:"无缝", p304AP:28.6, p304LBA:33.8, p316LBA:39, p316LEP:96},
+            {id:36, std:"日标", stdKey:"jp", type:"无缝管道", od:"8A", odMm:"13.8", wtMm:"1.65", remark:"无缝", p304AP:36.4, p304LBA:44.2, p316LBA:48.1, p316LEP:144},
+            {id:37, std:"日标", stdKey:"jp", type:"无缝管道", od:"10A", odMm:"17.3", wtMm:"1.2", remark:"无缝", p304AP:28.6, p304LBA:33.8, p316LBA:42.9, p316LEP:126},
+            {id:38, std:"日标", stdKey:"jp", type:"无缝管道", od:"10A", odMm:"17.3", wtMm:"1.65", remark:"无缝", p304AP:36.4, p304LBA:44.2, p316LBA:57.2, p316LEP:189},
+            {id:39, std:"日标", stdKey:"jp", type:"无缝管道", od:"15A", odMm:"21.7", wtMm:"1.65", remark:"无缝", p304AP:45.5, p304LBA:55.9, p316LBA:68.9, p316LEP:195},
+            {id:40, std:"日标", stdKey:"jp", type:"无缝管道", od:"15A", odMm:"21.7", wtMm:"2.1", remark:"无缝", p304AP:54.6, p304LBA:68.9, p316LBA:84.5, p316LEP:292.5},
+            {id:41, std:"日标", stdKey:"jp", type:"无缝管道", od:"20A", odMm:"27.2", wtMm:"1.65", remark:"无缝", p304AP:58.5, p304LBA:72.8, p316LBA:83.2, p316LEP:242},
+            {id:42, std:"日标", stdKey:"jp", type:"无缝管道", od:"20A", odMm:"27.2", wtMm:"2.1", remark:"无缝", p304AP:71.5, p304LBA:89.7, p316LBA:102.7, p316LEP:363},
+            {id:43, std:"日标", stdKey:"jp", type:"无缝管道", od:"25A", odMm:"34", wtMm:"1.65", remark:"无缝", p304AP:72.8, p304LBA:91, p316LBA:107.9, p316LEP:294},
+            {id:44, std:"日标", stdKey:"jp", type:"无缝管道", od:"25A", odMm:"34", wtMm:"2.8", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:176.8, p316LEP:441},
+            {id:45, std:"日标", stdKey:"jp", type:"无缝管道", od:"32A", odMm:"42.7", wtMm:"1.65", remark:"无缝", p304AP:92.3, p304LBA:117, p316LBA:149.5, p316LEP:379},
+            {id:46, std:"日标", stdKey:"jp", type:"无缝管道", od:"32A", odMm:"42.7", wtMm:"2.8", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:247, p316LEP:568.5},
+            {id:47, std:"日标", stdKey:"jp", type:"无缝管道", od:"40A", odMm:"48.6", wtMm:"1.65", remark:"无缝", p304AP:117, p304LBA:144.3, p316LBA:178.1, p316LEP:431},
+            {id:48, std:"日标", stdKey:"jp", type:"无缝管道", od:"40A", odMm:"48.6", wtMm:"2.8", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:282.1, p316LEP:861},
+            {id:49, std:"日标", stdKey:"jp", type:"无缝管道", od:"50A", odMm:"60.5", wtMm:"1.65", remark:"无缝", p304AP:149.5, p304LBA:188.5, p316LBA:247, p316LEP:1291.5},
+            {id:50, std:"日标", stdKey:"jp", type:"无缝管道", od:"50A", odMm:"60.5", wtMm:"2.8", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:354.9, p316LEP:1420},
+            {id:51, std:"日标", stdKey:"jp", type:"无缝管道", od:"65A", odMm:"76.3", wtMm:"2.1", remark:"无缝", p304AP:253.5, p304LBA:345.8, p316LBA:403, p316LEP:1359},
+            {id:52, std:"日标", stdKey:"jp", type:"无缝管道", od:"65A", odMm:"76.3", wtMm:"3", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:1495},
+            {id:53, std:"日标", stdKey:"jp", type:"无缝管道", od:"80A", odMm:"89.1", wtMm:"2.1", remark:"无缝", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:1431},
+            {id:54, std:"日标", stdKey:"jp", type:"无缝管道", od:"80A", odMm:"89.1", wtMm:"3", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:1574},
+            {id:55, std:"日标", stdKey:"jp", type:"无缝管道", od:"100A", odMm:"114.3", wtMm:"2.1", remark:"无缝", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:1506},
+            {id:55, std:"日标", stdKey:"jp", type:"无缝管道", od:"100A", odMm:"114.3", wtMm:"3", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:1656},
+            // 日标-有缝管道
+            {id:56, std:"日标", stdKey:"jp", type:"有缝管道", od:"15A", odMm:"21.7", wtMm:"1.65", remark:"有缝日标", p304AP:27.3, p304LBA:32.5, p316LBA:44.2, p316LEP:null},
+            {id:57, std:"日标", stdKey:"jp", type:"有缝管道", od:"15A", odMm:"21.7", wtMm:"2.1", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:null},
+            {id:58, std:"日标", stdKey:"jp", type:"有缝管道", od:"20A", odMm:"27.2", wtMm:"1.65", remark:"有缝日标", p304AP:36.4, p304LBA:42.9, p316LBA:58.5, p316LEP:122},
+            {id:59, std:"日标", stdKey:"jp", type:"有缝管道", od:"20A", odMm:"27.2", wtMm:"2.1", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:null},
+            {id:60, std:"日标", stdKey:"jp", type:"有缝管道", od:"25A", odMm:"34", wtMm:"1.65", remark:"有缝日标", p304AP:44.2, p304LBA:52, p316LBA:72.8, p316LEP:160},
+            {id:61, std:"日标", stdKey:"jp", type:"有缝管道", od:"25A", odMm:"34", wtMm:"2.8", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:null},
+            {id:62, std:"日标", stdKey:"jp", type:"有缝管道", od:"32A", odMm:"42.7", wtMm:"1.65", remark:"有缝日标", p304AP:53.3, p304LBA:63.7, p316LBA:89.7, p316LEP:200},
+            {id:63, std:"日标", stdKey:"jp", type:"有缝管道", od:"40A", odMm:"48.6", wtMm:"1.65", remark:"有缝日标", p304AP:59.8, p304LBA:71.5, p316LBA:101.4, p316LEP:250},
+            {id:64, std:"日标", stdKey:"jp", type:"有缝管道", od:"40A", odMm:"48.6", wtMm:"2.8", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:null},
+            {id:65, std:"日标", stdKey:"jp", type:"有缝管道", od:"50A", odMm:"60.5", wtMm:"1.65", remark:"有缝日标", p304AP:72.8, p304LBA:88.4, p316LBA:126.1, p316LEP:280},
+            {id:66, std:"日标", stdKey:"jp", type:"有缝管道", od:"50A", odMm:"60.5", wtMm:"2.8", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:null},
+            {id:67, std:"日标", stdKey:"jp", type:"有缝管道", od:"65A", odMm:"76.3", wtMm:"2.1", remark:"有缝日标", p304AP:119.6, p304LBA:144.3, p316LBA:204.1, p316LEP:694},
+            {id:68, std:"日标", stdKey:"jp", type:"有缝管道", od:"65A", odMm:"76.3", wtMm:"3", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:400},
+            {id:69, std:"日标", stdKey:"jp", type:"有缝管道", od:"80A", odMm:"89.1", wtMm:"2.1", remark:"有缝日标", p304AP:150.8, p304LBA:179.4, p316LBA:244.4, p316LEP:746},
+            {id:70, std:"日标", stdKey:"jp", type:"有缝管道", od:"80A", odMm:"89.1", wtMm:"3", remark:"有缝日标", p304AP:201.5, p304LBA:235.3, p316LBA:335.4, p316LEP:888},
+            {id:71, std:"日标", stdKey:"jp", type:"有缝管道", od:"90A", odMm:"101.6", wtMm:"2.1", remark:"有缝日标", p304AP:167.7, p304LBA:195, p316LBA:275.6, p316LEP:796},
+            {id:72, std:"日标", stdKey:"jp", type:"有缝管道", od:"90A", odMm:"101.6", wtMm:"3", remark:"有缝日标", p304AP:227.5, p304LBA:265.2, p316LBA:370.5, p316LEP:960},
+            {id:73, std:"日标", stdKey:"jp", type:"有缝管道", od:"100A", odMm:"114.3", wtMm:"2.1", remark:"有缝日标", p304AP:182, p304LBA:217.1, p316LBA:300.3, p316LEP:846},
+            {id:74, std:"日标", stdKey:"jp", type:"有缝管道", od:"100A", odMm:"114.3", wtMm:"3", remark:"有缝日标", p304AP:248.3, p304LBA:296.4, p316LBA:416, p316LEP:1032},
+            {id:75, std:"日标", stdKey:"jp", type:"有缝管道", od:"125A", odMm:"139.8", wtMm:"2.8", remark:"有缝日标", p304AP:280.8, p304LBA:330.2, p316LBA:473.2, p316LEP:1126},
+            {id:76, std:"日标", stdKey:"jp", type:"有缝管道", od:"125A", odMm:"139.8", wtMm:"3.4", remark:"有缝日标", p304AP:334.1, p304LBA:393.9, p316LBA:566.8, p316LEP:1278},
+            {id:77, std:"日标", stdKey:"jp", type:"有缝管道", od:"150A", odMm:"165.2", wtMm:"2.8", remark:"有缝日标", p304AP:327.6, p304LBA:386.1, p316LBA:556.4, p316LEP:1260},
+            {id:78, std:"日标", stdKey:"jp", type:"有缝管道", od:"150A", odMm:"165.2", wtMm:"3.4", remark:"有缝日标", p304AP:391.3, p304LBA:462.8, p316LBA:666.9, p316LEP:1414},
+            {id:79, std:"日标", stdKey:"jp", type:"有缝管道", od:"200A", odMm:"216.3", wtMm:"2.8", remark:"有缝日标", p304AP:425.1, p304LBA:503.1, p316LBA:726.7, p316LEP:1508},
+            {id:80, std:"日标", stdKey:"jp", type:"有缝管道", od:"200A", odMm:"216.3", wtMm:"4", remark:"有缝日标", p304AP:590.2, p304LBA:699.4, p316LBA:1015.3, p316LEP:1966},
+            {id:81, std:"日标", stdKey:"jp", type:"有缝管道", od:"250A", odMm:"267.4", wtMm:"3.4", remark:"有缝日标", p304AP:621.4, p304LBA:738.4, p316LBA:1072.5, p316LEP:2054},
+            {id:82, std:"日标", stdKey:"jp", type:"有缝管道", od:"250A", odMm:"267.4", wtMm:"4", remark:"有缝日标", p304AP:725.4, p304LBA:861.9, p316LBA:1254.5, p316LEP:2342},
+            {id:83, std:"日标", stdKey:"jp", type:"有缝管道", od:"300A", odMm:"318.5", wtMm:"4", remark:"有缝日标", p304AP:860.6, p304LBA:1024.4, p316LBA:1492.4, p316LEP:3120},
+            {id:84, std:"日标", stdKey:"jp", type:"有缝管道", od:"300A", odMm:"318.5", wtMm:"4.5", remark:"有缝日标", p304AP:964.6, p304LBA:1146.6, p316LBA:1673.1, p316LEP:3404},
+            {id:85, std:"日标", stdKey:"jp", type:"有缝管道", od:"350A", odMm:"355.6", wtMm:"4", remark:"有缝日标", p304AP:959.4, p304LBA:1141.4, p316LBA:1665.3, p316LEP:3392},
+            {id:86, std:"日标", stdKey:"jp", type:"有缝管道", od:"350A", odMm:"355.6", wtMm:"5", remark:"有缝日标", p304AP:1189.5, p304LBA:1417, p316LBA:2011.1, p316LEP:4032},
+            {id:87, std:"日标", stdKey:"jp", type:"有缝管道", od:"400A", odMm:"406.4", wtMm:"4.5", remark:"有缝日标", p304AP:1227.2, p304LBA:1461.2, p316LBA:2134.6, p316LEP:4134},
+            {id:88, std:"日标", stdKey:"jp", type:"有缝管道", od:"400A", odMm:"406.4", wtMm:"5", remark:"有缝日标", p304AP:1358.5, p304LBA:1618.5, p316LBA:2366, p316LEP:4500},
+            {id:89, std:"日标", stdKey:"jp", type:"有缝管道", od:"450A", odMm:"457.2", wtMm:"4.5", remark:"有缝日标", p304AP:1378, p304LBA:1641.9, p316LBA:2401.1, p316LEP:4556},
+            {id:90, std:"日标", stdKey:"jp", type:"有缝管道", od:"450A", odMm:"457.2", wtMm:"5", remark:"有缝日标", p304AP:1527.5, p304LBA:1820, p316LBA:2662.4, p316LEP:4966},
+            {id:91, std:"日标", stdKey:"jp", type:"有缝管道", od:"500A", odMm:"508", wtMm:"5", remark:"有缝日标", p304AP:1696.5, p304LBA:2021.5, p316LBA:2957.5, p316LEP:5436},
+            {id:92, std:"日标", stdKey:"jp", type:"有缝管道", od:"500A", odMm:"508", wtMm:"5.5", remark:"有缝日标", p304AP:1861.6, p304LBA:2219.1, p316LBA:3248.7, p316LEP:5894}
+        ];
+        // DN数据
+        const dnPipeData = [
+            // DN-无缝管道
+            {id:93, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN15", odMm:"21.3", wtMm:"1.6", remark:"无缝", p304AP:45.33, p304LBA:48, p316LBA:64, p316LEP:null},
+            {id:94, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN15", odMm:"21.3", wtMm:"2.1", remark:"无缝", p304AP:56, p304LBA:62.67, p316LBA:80, p316LEP:null},
+            {id:95, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN20", odMm:"26.9", wtMm:"1.6", remark:"无缝", p304AP:56, p304LBA:57.33, p316LBA:78.67, p316LEP:null},
+            {id:96, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN20", odMm:"26.9", wtMm:"2.1", remark:"无缝", p304AP:70.67, p304LBA:77.33, p316LBA:100, p316LEP:null},
+            {id:97, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN25", odMm:"33.7", wtMm:"1.6", remark:"无缝", p304AP:73.33, p304LBA:80, p316LBA:102.67, p316LEP:null},
+            {id:98, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN25", odMm:"33.7", wtMm:"2.8", remark:"无缝", p304AP:113.33, p304LBA:129.33, p316LBA:168, p316LEP:null},
+            {id:99, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN32", odMm:"42.4", wtMm:"1.6", remark:"无缝", p304AP:90.67, p304LBA:100, p316LBA:130.67, p316LEP:null},
+            {id:100, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN32", odMm:"42.4", wtMm:"2.8", remark:"无缝", p304AP:150.67, p304LBA:166.67, p316LBA:214.67, p316LEP:null},
+            {id:101, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN40", odMm:"48.3", wtMm:"1.6", remark:"无缝", p304AP:104, p304LBA:110.67, p316LBA:149.33, p316LEP:null},
+            {id:102, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN40", odMm:"48.3", wtMm:"2.8", remark:"无缝", p304AP:165, p304LBA:190.67, p316LBA:246.67, p316LEP:null},
+            {id:103, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN50", odMm:"60.3", wtMm:"1.6", remark:"无缝", p304AP:132, p304LBA:157.33, p316LBA:202.67, p316LEP:null},
+            {id:104, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN50", odMm:"60.3", wtMm:"2.8", remark:"无缝", p304AP:222.67, p304LBA:250.67, p316LBA:321.33, p316LEP:null},
+            {id:105, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN65", odMm:"76.1", wtMm:"2", remark:"无缝", p304AP:233.33, p304LBA:250.67, p316LBA:365.33, p316LEP:null},
+            {id:106, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN65", odMm:"76.1", wtMm:"3", remark:"无缝", p304AP:334.67, p304LBA:441.33, p316LBA:536, p316LEP:null},
+            {id:107, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN80", odMm:"88.9", wtMm:"2", remark:"无缝", p304AP:266.67, p304LBA:344, p316LBA:428, p316LEP:null},
+            {id:108, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN80", odMm:"88.9", wtMm:"3", remark:"无缝", p304AP:390.67, p304LBA:517.33, p316LBA:628, p316LEP:null},
+            {id:109, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN90", odMm:"101.6", wtMm:"2", remark:"无缝", p304AP:304, p304LBA:401.33, p316LBA:490.67, p316LEP:null},
+            {id:110, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN90", odMm:"101.6", wtMm:"3", remark:"无缝", p304AP:449.33, p304LBA:593.33, p316LBA:724, p316LEP:null},
+            {id:111, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN100", odMm:"114.3", wtMm:"2", remark:"无缝", p304AP:342.67, p304LBA:450.67, p316LBA:552, p316LEP:null},
+            {id:112, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN100", odMm:"114.3", wtMm:"3", remark:"无缝", p304AP:506.67, p304LBA:669.33, p316LBA:824, p316LEP:null},
+            {id:113, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN125", odMm:"139.7", wtMm:"2.9", remark:"无缝", p304AP:606.67, p304LBA:834.67, p316LBA:1008, p316LEP:null},
+            {id:114, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN125", odMm:"139.7", wtMm:"3.4", remark:"无缝", p304AP:706.67, p304LBA:974.67, p316LBA:1180, p316LEP:null},
+            {id:115, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN150", odMm:"168.3", wtMm:"2.9", remark:"无缝", p304AP:762.67, p304LBA:1024, p316LBA:1254.67, p316LEP:null},
+            {id:116, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN150", odMm:"168.3", wtMm:"3.4", remark:"无缝", p304AP:888, p304LBA:1214.67, p316LBA:1461.33, p316LEP:null},
+            {id:117, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN200", odMm:"219.1", wtMm:"2.9", remark:"无缝", p304AP:1044, p304LBA:1418.67, p316LBA:1700, p316LEP:null},
+            {id:118, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN200", odMm:"219.1", wtMm:"4", remark:"无缝", p304AP:1441.33, p304LBA:1945.33, p316LBA:2333.33, p316LEP:null},
+        ];
+
+        // 合并所有数据
+        const allPipeData = [...enPipeData, ...jpPipeData, ...dnPipeData];
+        
+        // DOM元素
+        const loginScreen = document.getElementById('loginScreen');
+        const mainSystem = document.getElementById('mainSystem');
+        const loginForm = document.getElementById('loginForm');
+        const passwordInput = document.getElementById('password');
+        const errorMsg = document.getElementById('errorMsg');
+        
+        // 选择器元素（调整了顺序）
+        const standardTypeSelect = document.getElementById('standard-type');
+        const pipeTypeSelect = document.getElementById('pipe-type');
+        const steelTypeSelect = document.getElementById('steel-type');  // 现在是第3项
+        const odSpecSelect = document.getElementById('od-spec');        // 现在是第4项
+        const wtSpecSelect = document.getElementById('wt-spec');
+        const priceDisplay = document.getElementById('price-display');
+        
+        // 详情面板元素
+        const selectedDetailPanel = document.getElementById('selected-detail-panel');
+        const detailPanelTitle = document.getElementById('detail-panel-title');
+        const detailStandard = document.getElementById('detail-standard');
+        const detailType = document.getElementById('detail-type');
+        const detailOdSpec = document.getElementById('detail-od-spec');
+        const detailOdMm = document.getElementById('detail-od-mm');
+        const detailWtMm = document.getElementById('detail-wt-mm');
+        const detailRemark = document.getElementById('detail-remark');
+        const detailSteel = document.getElementById('detail-steel');
+        const detailPrice = document.getElementById('detail-price');
+        const detailSource = document.getElementById('detail-source');
+        const detail304ap = document.getElementById('detail-304ap');
+        const detail304lba = document.getElementById('detail-304lba');
+        const detail316lba = document.getElementById('detail-316lba');
+        const detail316lep = document.getElementById('detail-316lep');
+        
+        // 历史记录元素
+        const historyList = document.getElementById('history-list');
+        const clearHistoryBtn = document.getElementById('clear-history');
+        const downloadHistoryBtn = document.getElementById('download-history');
+        
+        // 表格元素
+        const fullDataTable = document.getElementById('full-data-table');
+        const downloadAllBtn = document.getElementById('download-all');
+        
+        // 登录处理
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (passwordInput.value === 'pveo2025') {
+                loginScreen.classList.add('slide-out');
+                setTimeout(() => {
+                    loginScreen.classList.add('hidden');
+                    mainSystem.classList.remove('hidden');
+                    mainSystem.classList.add('slide-in');
+                    initSystem();
+                }, 400);
+            } else {
+                errorMsg.classList.remove('hidden');
+                passwordInput.classList.add('shake');
+                setTimeout(() => {
+                    passwordInput.classList.remove('shake');
+                }, 500);
+            }
+        });
+        
+        // 初始化系统
+        function initSystem() {
+            // 不再填充表格数据，保持隐藏状态
+            loadHistory();
+            setupEventListeners();
+        }
+        
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 1. 标准类型选择变化
+            standardTypeSelect.addEventListener('change', function() {
+                resetSelects(1); // 重置后续所有选择器
+                const stdKey = this.value;
+                if (stdKey) {
+                    setFocusStyle(stdKey);
+                    populatePipeTypeSelect(stdKey); // 填充管道类型（第2项）
+                    pipeTypeSelect.disabled = false;
+                }
+            });
+            
+            // 2. 管道类型选择变化
+            pipeTypeSelect.addEventListener('change', function() {
+                resetSelects(2); // 重置第3项及以后
+                const stdKey = standardTypeSelect.value;
+                const type = this.value;
+                if (type) {
+                    populateSteelTypeSelect(stdKey, type); // 填充钢材类型（现在是第3项）
+                    steelTypeSelect.disabled = false;
+                }
+            });
+            
+            // 3. 钢材类型选择变化（原第5项，现为第3项）
+            steelTypeSelect.addEventListener('change', function() {
+                resetSelects(3); // 重置第4项及以后
+                const stdKey = standardTypeSelect.value;
+                const type = pipeTypeSelect.value;
+                const steel = this.value;
+                if (steel) {
+                    populateOdSpecSelect(stdKey, type, steel); // 填充外径规格（现在是第4项）
+                    odSpecSelect.disabled = false;
+                }
+            });
+            
+            // 4. 外径规格选择变化（原第3项，现为第4项）
+            odSpecSelect.addEventListener('change', function() {
+                resetSelects(4); // 重置第5项及以后
+                const stdKey = standardTypeSelect.value;
+                const type = pipeTypeSelect.value;
+                const steel = steelTypeSelect.value;
+                const od = this.value;
+                if (od) {
+                    populateWtSpecSelect(stdKey, type, steel, od); // 填充壁厚规格（第5项）
+                    wtSpecSelect.disabled = false;
+                }
+            });
+            
+            // 5. 壁厚规格选择变化
+            wtSpecSelect.addEventListener('change', function() {
+                const stdKey = standardTypeSelect.value;
+                const type = pipeTypeSelect.value;
+                const steel = steelTypeSelect.value;
+                const od = odSpecSelect.value;
+                const wt = this.value;
+                
+                if (wt) {
+                    const price = getPriceBySelection(stdKey, type, od, wt, steel);
+                    if (price !== null) {
+                        priceDisplay.textContent = price + ' 元';
+                        priceDisplay.classList.add('font-bold', 'text-lg');
+                        
+                        // 显示详情面板
+                        showDetailPanel(stdKey, type, od, wt, steel, price);
+                        
+                        // 添加到历史记录
+                        addToHistory(stdKey, type, od, wt, steel, price);
+                    } else {
+                        priceDisplay.textContent = '无此类型价格数据';
+                        priceDisplay.classList.remove('font-bold', 'text-lg');
+                    }
+                } else {
+                    priceDisplay.textContent = '请选择壁厚规格';
+                    priceDisplay.classList.remove('font-bold', 'text-lg');
+                }
+            });
+            
+            // 清空历史记录
+            clearHistoryBtn.addEventListener('click', function() {
+                if (confirm('确定要清空所有查询历史吗？')) {
+                    localStorage.removeItem('pipeQueryHistory');
+                    renderHistory();
+                }
+            });
+            
+            // 下载历史记录
+            downloadHistoryBtn.addEventListener('click', function() {
+                const history = JSON.parse(localStorage.getItem('pipeQueryHistory') || '[]');
+                if (history.length === 0) {
+                    alert('没有查询历史记录可下载');
+                    return;
+                }
+                
+                let csvContent = "标准类型,管道类型,钢材类型,外径规格,壁厚(mm),价格(元),查询时间\n";
+                history.forEach(item => {
+                    csvContent += `${item.standard},${item.type},${item.steel},${item.od},${item.wt},${item.price},${item.timestamp}\n`;
+                });
+                
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', `管道价格查询历史_${new Date().toLocaleDateString()}.csv`);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            // 下载全量数据
+            downloadAllBtn.addEventListener('click', function() {
+                let csvContent = "序号,标准类型,管道类型,外径规格,外径(mm),壁厚(mm),备注,304AP单价(元),304L BA单价(元),316L BA单价(元),316L EP单价(元)\n";
+                
+                allPipeData.forEach((item, index) => {
+                    csvContent += `${index + 1},${item.std},${item.type},${item.od},${item.odMm},${item.wtMm},${item.remark || ''},${item.p304AP || ''},${item.p304LBA || ''},${item.p316LBA || ''},${item.p316LEP || ''}\n`;
+                });
+                
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', `管道价格全量数据_${new Date().toLocaleDateString()}.csv`);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            // 历史记录点击事件委托
+            historyList.addEventListener('click', function(e) {
+                const historyItem = e.target.closest('.history-item');
+                if (historyItem && historyItem.dataset.id) {
+                    const historyId = historyItem.dataset.id;
+                    loadHistoryItem(historyId);
+                }
+            });
+        }
+        
+        // 加载历史记录项到查询表单（适配新顺序）
+        function loadHistoryItem(historyId) {
+            const history = JSON.parse(localStorage.getItem('pipeQueryHistory') || '[]');
+            const item = history.find(h => h.id === historyId);
+            
+            if (!item) return;
+            
+            // 1. 设置标准类型
+            standardTypeSelect.value = item.stdKey;
+            standardTypeSelect.dispatchEvent(new Event('change'));
+            
+            // 等待标准类型变化事件处理完成
+            setTimeout(() => {
+                // 2. 设置管道类型
+                pipeTypeSelect.value = item.type;
+                pipeTypeSelect.dispatchEvent(new Event('change'));
+                
+                // 等待管道类型变化事件处理完成
+                setTimeout(() => {
+                    // 3. 设置钢材类型（新顺序）
+                    steelTypeSelect.value = item.steelKey;
+                    steelTypeSelect.dispatchEvent(new Event('change'));
+                    
+                    // 等待钢材类型变化事件处理完成
+                    setTimeout(() => {
+                        // 4. 设置外径规格（新顺序）
+                        odSpecSelect.value = item.od;
+                        odSpecSelect.dispatchEvent(new Event('change'));
+                        
+                        // 等待外径规格变化事件处理完成
+                        setTimeout(() => {
+                            // 5. 设置壁厚规格
+                            wtSpecSelect.value = item.wt;
+                            wtSpecSelect.dispatchEvent(new Event('change'));
+                        }, 100);
+                    }, 100);
+                }, 100);
+            }, 100);
+        }
+        
+        // 设置焦点样式
+        function setFocusStyle(stdKey) {
+            [standardTypeSelect, pipeTypeSelect, steelTypeSelect, odSpecSelect, wtSpecSelect].forEach(select => {
+                select.classList.remove('en-focus-style', 'jp-focus-style', 'dn-focus-style');
+                select.classList.add(`${stdKey}-focus-style`);
+            });
+            
+            selectedDetailPanel.classList.remove('panel-en-style', 'panel-jp-style', 'panel-dn-style');
+            selectedDetailPanel.classList.add(`panel-${stdKey}-style`);
+        }
+        
+        // 填充管道类型选择框（第2项）
+        function populatePipeTypeSelect(stdKey) {
+            const types = [...new Set(allPipeData.filter(item => item.stdKey === stdKey).map(item => item.type))];
+            pipeTypeSelect.innerHTML = '<option value="">请选择管道类型</option>';
+            
+            types.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                pipeTypeSelect.appendChild(option);
+            });
+        }
+        
+        // 填充钢材类型选择框（第3项，原第5项）
+        function populateSteelTypeSelect(stdKey, type) {
+            // 获取该标准和管道类型下所有可用的钢材类型
+            const steelTypes = new Set();
+            
+            allPipeData.forEach(item => {
+                if (item.stdKey === stdKey && item.type === type) {
+                    if (item.p304AP !== null && item.p304AP !== undefined) steelTypes.add('304AP');
+                    if (item.p304LBA !== null && item.p304LBA !== undefined) steelTypes.add('304LBA');
+                    if (item.p316LBA !== null && item.p316LBA !== undefined) steelTypes.add('316LBA');
+                    if (item.p316LEP !== null && item.p316LEP !== undefined) steelTypes.add('316LEP');
+                }
+            });
+            
+            steelTypeSelect.innerHTML = '<option value="">请选择钢材类型</option>';
+            
+            Array.from(steelTypes).forEach(steel => {
+                const option = document.createElement('option');
+                option.value = steel;
+                option.textContent = steel === '304LBA' ? '304L BA' : 
+                                 steel === '316LBA' ? '316L BA' : 
+                                 steel === '316LEP' ? '316L EP' : steel;
+                steelTypeSelect.appendChild(option);
+            });
+        }
+        
+        // 填充外径规格选择框（第4项，原第3项）
+        function populateOdSpecSelect(stdKey, type, steel) {
+            const odSpecs = [...new Set(allPipeData.filter(item => {
+                if (item.stdKey !== stdKey || item.type !== type) return false;
+                
+                // 根据钢材类型过滤有数据的外径规格
+                switch(steel) {
+                    case '304AP':
+                        return item.p304AP !== null && item.p304AP !== undefined;
+                    case '304LBA':
+                        return item.p304LBA !== null && item.p304LBA !== undefined;
+                    case '316LBA':
+                        return item.p316LBA !== null && item.p316LBA !== undefined;
+                    case '316LEP':
+                        return item.p316LEP !== null && item.p316LEP !== undefined;
+                    default:
+                        return false;
+                }
+            }).map(item => item.od))];
+            
+            odSpecSelect.innerHTML = '<option value="">请选择外径规格</option>';
+            
+            odSpecs.forEach(od => {
+                const option = document.createElement('option');
+                option.value = od;
+                option.textContent = od;
+                odSpecSelect.appendChild(option);
+            });
+        }
+        
+        // 填充壁厚规格选择框（第5项）
+        function populateWtSpecSelect(stdKey, type, steel, od) {
+            const wtSpecs = [...new Set(allPipeData.filter(item => {
+                if (item.stdKey !== stdKey || item.type !== type || item.od !== od) return false;
+                
+                // 根据钢材类型过滤有数据的壁厚规格
+                switch(steel) {
+                    case '304AP':
+                        return item.p304AP !== null && item.p304AP !== undefined;
+                    case '304LBA':
+                        return item.p304LBA !== null && item.p304LBA !== undefined;
+                    case '316LBA':
+                        return item.p316LBA !== null && item.p316LBA !== undefined;
+                    case '316LEP':
+                        return item.p316LEP !== null && item.p316LEP !== undefined;
+                    default:
+                        return false;
+                }
+            }).map(item => item.wtMm))];
+            
+            wtSpecSelect.innerHTML = '<option value="">请选择壁厚规格</option>';
+            
+            wtSpecs.forEach(wt => {
+                const option = document.createElement('option');
+                option.value = wt;
+                option.textContent = wt;
+                wtSpecSelect.appendChild(option);
+            });
+        }
+        
+        // 根据选择获取价格
+        function getPriceBySelection(stdKey, type, od, wt, steel) {
+            const item = allPipeData.find(item => 
+                item.stdKey === stdKey && item.type === type && item.od === od && item.wtMm === wt
+            );
+            
+            if (!item) return null;
+            
+            switch(steel) {
+                case '304AP':
+                    return item.p304AP;
+                case '304LBA':
+                    return item.p304LBA;
+                case '316LBA':
+                    return item.p316LBA;
+                case '316LEP':
+                    return item.p316LEP;
+                default:
+                    return null;
+            }
+        }
+        
+        // 显示详情面板
+        function showDetailPanel(stdKey, type, od, wt, steel, price) {
+            const item = allPipeData.find(item => 
+                item.stdKey === stdKey && item.type === type && item.od === od && item.wtMm === wt
+            );
+            
+            if (!item) return;
+            
+            // 设置详情面板内容
+            detailStandard.textContent = item.std;
+            detailType.textContent = item.type;
+            detailOdSpec.textContent = item.od;
+            detailOdMm.textContent = item.odMm;
+            detailWtMm.textContent = item.wtMm;
+            detailRemark.textContent = item.remark || '无';
+            detailSteel.textContent = steel === '304LBA' ? '304L BA' : 
+                                     steel === '316LBA' ? '316L BA' : 
+                                     steel === '316LEP' ? '316L EP' : steel;
+            detailPrice.textContent = price + ' 元';
+            detailSource.textContent = '系统内置数据库 v5.0';
+            
+            // 其他材质价格
+            detail304ap.textContent = item.p304AP || '-';
+            detail304lba.textContent = item.p304LBA || '-';
+            detail316lba.textContent = item.p316LBA || '-';
+            detail316lep.textContent = item.p316LEP || '-';
+            
+            // 显示面板
+            selectedDetailPanel.classList.remove('hidden');
+            selectedDetailPanel.classList.add('slide-in');
+        }
+        
+        // 重置选择框（适配新顺序）
+        function resetSelects(startIndex) {
+            // 选择器顺序：1.标准 2.管道类型 3.钢材类型 4.外径 5.壁厚
+            const selects = [
+                {el: pipeTypeSelect, disabled: true},       // 索引1
+                {el: steelTypeSelect, disabled: true},      // 索引2
+                {el: odSpecSelect, disabled: true},         // 索引3
+                {el: wtSpecSelect, disabled: true}          // 索引4
+            ];
+            
+            priceDisplay.textContent = '请完成前五项选择';
+            priceDisplay.classList.remove('font-bold', 'text-lg');
+            
+            for (let i = startIndex; i < selects.length; i++) {
+                selects[i].el.innerHTML = '<option value="">请先完成前面的选择</option>';
+                selects[i].el.disabled = selects[i].disabled;
+            }
+            
+            if (startIndex <= 3) {
+                selectedDetailPanel.classList.add('hidden');
+                selectedDetailPanel.classList.remove('slide-in');
+            }
+        }
+        
+        // 添加到历史记录
+        function addToHistory(stdKey, type, od, wt, steel, price) {
+            const stdMap = {en: '英标', jp: '日标', dn: 'DN'};
+            const steelNameMap = {
+                '304AP': '304AP',
+                '304LBA': '304L BA',
+                '316LBA': '316L BA',
+                '316LEP': '316L EP'
+            };
+            
+            const historyItem = {
+                id: Date.now().toString(),
+                stdKey,
+                standard: stdMap[stdKey],
+                type,
+                od,
+                wt,
+                steel: steelNameMap[steel],
+                steelKey: steel,
+                price,
+                timestamp: new Date().toLocaleString()
+            };
+            
+            let history = JSON.parse(localStorage.getItem('pipeQueryHistory') || '[]');
+            
+            // 限制历史记录数量为20条
+            if (history.length >= 20) {
+                history = history.slice(0, 19);
+            }
+            
+            // 添加到历史记录开头
+            history.unshift(historyItem);
+            
+            localStorage.setItem('pipeQueryHistory', JSON.stringify(history));
+            renderHistory();
+        }
+        
+        // 加载历史记录
+        function loadHistory() {
+            renderHistory();
+        }
+        
+        // 渲染历史记录
+        function renderHistory() {
+            const history = JSON.parse(localStorage.getItem('pipeQueryHistory') || '[]');
+            
+            if (history.length === 0) {
+                historyList.innerHTML = `
+                    <div class="text-center text-gray-500 py-6">
+                        <i class="fa fa-clock-o text-2xl mb-2 block"></i>
+                        暂无查询记录
+                    </div>
+                `;
+                return;
+            }
+            
+            historyList.innerHTML = '';
+            
+            history.forEach(item => {
+                const historyEl = document.createElement('div');
+                historyEl.className = `history-item ${item.stdKey}-tag-style/30`;
+                historyEl.dataset.id = item.id;
+                
+                historyEl.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="font-medium">${item.standard} ${item.type}</div>
+                            <div class="text-sm text-gray-600 mt-1">
+                                钢材: ${item.steel}，外径: ${item.od}，壁厚: ${item.wt}mm
+                            </div>
+                            <div class="text-sm mt-1">
+                                <span class="font-bold">${item.price} 元</span>
+                            </div>
+                        </div>
+                        <span class="text-xs text-gray-500">${item.timestamp}</span>
+                    </div>
+                `;
+                
+                historyList.appendChild(historyEl);
+            });
+        }
+    </script>
+</body></html>
