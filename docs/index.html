@@ -251,7 +251,7 @@
 						</div>
 					</div>
 
-				<!-- 选中项详情面板 -->
+					<!-- 选中项详情面板 -->
 					<div id="selected-detail-panel" class="border rounded-xl p-6 hidden transform transition-all duration-300 hover:shadow-md">
 						<h3 class="font-bold mb-4 flex items-center" id="detail-panel-title">
 							<i class="fa fa-info-circle mr-2"></i>选中项详情
@@ -272,8 +272,10 @@
 							<div>
 								<p class="text-sm text-gray-600">同规格其他材质价格：</p>
 								<div class="mt-2 space-y-2 text-sm">
-									<p class="px-2 py-1 rounded border border-gray-200">304AP：<span id="detail-304ap">-</span> 元</p>
+									<p class="px-2 py-1 rounded border border-gray-200">304L AP：<span id="detail-304lap">-</span> 元</p>
 									<p class="px-2 py-1 rounded border border-gray-200">304L BA：<span id="detail-304lba">-</span> 元</p>
+									<p class="px-2 py-1 rounded border border-gray-200">304L EP：<span id="detail-304lep">-</span> 元</p>
+									<p class="px-2 py-1 rounded border border-gray-200">316L AP：<span id="detail-316lap">-</span> 元</p>
 									<p class="px-2 py-1 rounded border border-gray-200">316L BA：<span id="detail-316lba">-</span> 元</p>
 									<p class="px-2 py-1 rounded border border-gray-200">316L EP：<span id="detail-316lep">-</span> 元</p>
 								</div>
@@ -318,168 +320,168 @@
         // 英标数据
         const enPipeData = [
             // 英标-无缝管道
-            {id:1, std:"英标", stdKey:"en", type:"无缝管道", od:"1/4\"", odMm:"6.35", wtMm:"0.89", remark:"英标无缝", p304AP:15.6, p304LBA:16.9, p316LBA:19.5, p316LEP:48},
-            {id:2, std:"英标", stdKey:"en", type:"无缝管道", od:"1/4\"", odMm:"6.35", wtMm:"1", remark:"英标无缝", p304AP:15.6, p304LBA:16.9, p316LBA:20, p316LEP:51},
-            {id:3, std:"英标", stdKey:"en", type:"无缝管道", od:"3/8\"", odMm:"9.53", wtMm:"0.89", remark:"英标无缝", p304AP:18.2, p304LBA:20.8, p316LBA:24.05, p316LEP:58},
-            {id:4, std:"英标", stdKey:"en", type:"无缝管道", od:"3/8\"", odMm:"9.53", wtMm:"1", remark:"英标无缝", p304AP:19.5, p304LBA:22.1, p316LBA:26, p316LEP:65},
-            {id:5, std:"英标", stdKey:"en", type:"无缝管道", od:"1/2\"", odMm:"12.7", wtMm:"1", remark:"英标无缝", p304AP:22.1, p304LBA:24.7, p316LBA:29.9, p316LEP:47.33},
-            {id:6, std:"英标", stdKey:"en", type:"无缝管道", od:"1/2\"", odMm:"12.7", wtMm:"1.24", remark:"英标无缝", p304AP:27.3, p304LBA:29.9, p316LBA:35.1, p316LEP:82},
-            {id:7, std:"英标", stdKey:"en", type:"无缝管道", od:"1/2\"", odMm:"12.7", wtMm:"1.65", remark:"英标无缝", p304AP:32.5, p304LBA:35.1, p316LBA:44, p316LEP:107},
-            {id:8, std:"英标", stdKey:"en", type:"无缝管道", od:"5/8\"", odMm:"15.88", wtMm:"1.24", remark:"英标无缝", p304AP:26, p304LBA:33.8, p316LBA:42.9, p316LEP:null},
-            {id:9, std:"英标", stdKey:"en", type:"无缝管道", od:"5/8\"", odMm:"15.88", wtMm:"1.65", remark:"英标无缝", p304AP:33.8, p304LBA:40.3, p316LBA:52, p316LEP:null},
-            {id:10, std:"英标", stdKey:"en", type:"无缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.24", remark:"英标无缝", p304AP:31.2, p304LBA:37.7, p316LBA:48.1, p316LEP:null},
-            {id:11, std:"英标", stdKey:"en", type:"无缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.65", remark:"英标无缝", p304AP:39, p304LBA:49.5, p316LBA:61, p316LEP:161},
-            {id:12, std:"英标", stdKey:"en", type:"无缝管道", od:"1\"", odMm:"25.4", wtMm:"1.24", remark:"英标无缝", p304AP:37.7, p304LBA:48.1, p316LBA:59.8, p316LEP:null},
-            {id:13, std:"英标", stdKey:"en", type:"无缝管道", od:"1\"", odMm:"25.4", wtMm:"1.65", remark:"英标无缝", p304AP:49.4, p304LBA:58.5, p316LBA:75.4, p316LEP:212},
-            {id:14, std:"英标", stdKey:"en", type:"无缝管道", od:"1.25\"", odMm:"31.75", wtMm:"1.65", remark:"英标无缝", p304AP:62.4, p304LBA:76.7, p316LBA:97.5, p316LEP:234},
-            {id:15, std:"英标", stdKey:"en", type:"无缝管道", od:"1.5\"", odMm:"38.1", wtMm:"1.65", remark:"英标无缝", p304AP:75.4, p304LBA:96.2, p316LBA:120.9, p316LEP:350},
-            {id:16, std:"英标", stdKey:"en", type:"无缝管道", od:"2\"", odMm:"50.8", wtMm:"1.65", remark:"英标无缝", p304AP:120.9, p304LBA:127.4, p316LBA:161.2, p316LEP:450},
-            {id:17, std:"英标", stdKey:"en", type:"无缝管道", od:"2.5\"", odMm:"63.5", wtMm:"1.65", remark:"英标无缝", p304AP:162.5, p304LBA:179.4, p316LBA:222.3, p316LEP:650},
-            {id:18, std:"英标", stdKey:"en", type:"无缝管道", od:"3\"", odMm:"76.2", wtMm:"1.65", remark:"英标无缝", p304AP:227.5, p304LBA:235.3, p316LBA:287.3, p316LEP:800},
+            {id:1, std:"英标", stdKey:"en", type:"无缝管道", od:"1/4\"", odMm:"6.35", wtMm:"0.89", remark:"英标无缝", p304LAP:15.6, p304LBA:16.9, p316LBA:19.5, p316LEP:48},
+            {id:2, std:"英标", stdKey:"en", type:"无缝管道", od:"1/4\"", odMm:"6.35", wtMm:"1", remark:"英标无缝", p304LAP:15.6, p304LBA:16.9, p316LBA:20, p316LEP:51},
+            {id:3, std:"英标", stdKey:"en", type:"无缝管道", od:"3/8\"", odMm:"9.53", wtMm:"0.89", remark:"英标无缝", p304LAP:18.2, p304LBA:20.8, p316LBA:24.05, p316LEP:58},
+            {id:4, std:"英标", stdKey:"en", type:"无缝管道", od:"3/8\"", odMm:"9.53", wtMm:"1", remark:"英标无缝", p304LAP:19.5, p304LBA:22.1, p316LBA:26, p316LEP:65},
+            {id:5, std:"英标", stdKey:"en", type:"无缝管道", od:"1/2\"", odMm:"12.7", wtMm:"1", remark:"英标无缝", p304LAP:22.1, p304LBA:24.7, p316LBA:29.9, p316LEP:47.33},
+            {id:6, std:"英标", stdKey:"en", type:"无缝管道", od:"1/2\"", odMm:"12.7", wtMm:"1.24", remark:"英标无缝", p304LAP:27.3, p304LBA:29.9, p316LBA:35.1, p316LEP:82},
+            {id:7, std:"英标", stdKey:"en", type:"无缝管道", od:"1/2\"", odMm:"12.7", wtMm:"1.65", remark:"英标无缝", p304LAP:32.5, p304LBA:35.1, p316LBA:44, p316LEP:107},
+            {id:8, std:"英标", stdKey:"en", type:"无缝管道", od:"5/8\"", odMm:"15.88", wtMm:"1.24", remark:"英标无缝", p304LAP:26, p304LBA:33.8, p316LBA:42.9, p316LEP:null},
+            {id:9, std:"英标", stdKey:"en", type:"无缝管道", od:"5/8\"", odMm:"15.88", wtMm:"1.65", remark:"英标无缝", p304LAP:33.8, p304LBA:40.3, p316LBA:52, p316LEP:null},
+            {id:10, std:"英标", stdKey:"en", type:"无缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.24", remark:"英标无缝", p304LAP:31.2, p304LBA:37.7, p316LBA:48.1, p316LEP:null},
+            {id:11, std:"英标", stdKey:"en", type:"无缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.65", remark:"英标无缝", p304LAP:39, p304LBA:49.5, p316LBA:61, p316LEP:161},
+            {id:12, std:"英标", stdKey:"en", type:"无缝管道", od:"1\"", odMm:"25.4", wtMm:"1.24", remark:"英标无缝", p304LAP:37.7, p304LBA:48.1, p316LBA:59.8, p316LEP:null},
+            {id:13, std:"英标", stdKey:"en", type:"无缝管道", od:"1\"", odMm:"25.4", wtMm:"1.65", remark:"英标无缝", p304LAP:49.4, p304LBA:58.5, p316LBA:75.4, p316LEP:212},
+            {id:14, std:"英标", stdKey:"en", type:"无缝管道", od:"1.25\"", odMm:"31.75", wtMm:"1.65", remark:"英标无缝", p304LAP:62.4, p304LBA:76.7, p316LBA:97.5, p316LEP:234},
+            {id:15, std:"英标", stdKey:"en", type:"无缝管道", od:"1.5\"", odMm:"38.1", wtMm:"1.65", remark:"英标无缝", p304LAP:75.4, p304LBA:96.2, p316LBA:120.9, p316LEP:350},
+            {id:16, std:"英标", stdKey:"en", type:"无缝管道", od:"2\"", odMm:"50.8", wtMm:"1.65", remark:"英标无缝", p304LAP:120.9, p304LBA:127.4, p316LBA:161.2, p316LEP:450},
+            {id:17, std:"英标", stdKey:"en", type:"无缝管道", od:"2.5\"", odMm:"63.5", wtMm:"1.65", remark:"英标无缝", p304LAP:162.5, p304LBA:179.4, p316LBA:222.3, p316LEP:650},
+            {id:18, std:"英标", stdKey:"en", type:"无缝管道", od:"3\"", odMm:"76.2", wtMm:"1.65", remark:"英标无缝", p304LAP:227.5, p304LBA:235.3, p316LBA:287.3, p316LEP:800},
             // 英标-有缝管道
-            {id:19, std:"英标", stdKey:"en", type:"有缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.24", remark:"英标有缝", p304AP:19.5, p304LBA:23.4, p316LBA:31.2, p316LEP:70},
-            {id:20, std:"英标", stdKey:"en", type:"有缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.65", remark:"英标有缝", p304AP:24.7, p304LBA:28.6, p316LBA:40.3, p316LEP:83},
-            {id:21, std:"英标", stdKey:"en", type:"有缝管道", od:"1\"", odMm:"25.4", wtMm:"1.24", remark:"英标有缝", p304AP:24.7, p304LBA:27.3, p316LBA:39, p316LEP:85},
-            {id:22, std:"英标", stdKey:"en", type:"有缝管道", od:"1\"", odMm:"25.4", wtMm:"1.65", remark:"英标有缝", p304AP:32.5, p304LBA:36.4, p316LBA:52, p316LEP:105},
-            {id:23, std:"英标", stdKey:"en", type:"有缝管道", od:"1.25\"", odMm:"31.75", wtMm:"1.65", remark:"英标有缝", p304AP:37.7, p304LBA:42.9, p316LBA:62.4, p316LEP:138},
-            {id:24, std:"英标", stdKey:"en", type:"有缝管道", od:"1.5\"", odMm:"38.1", wtMm:"1.65", remark:"英标有缝", p304AP:45.5, p304LBA:52, p316LBA:74.1, p316LEP:161},
-            {id:25, std:"英标", stdKey:"en", type:"有缝管道", od:"2\"", odMm:"50.8", wtMm:"1.65", remark:"英标有缝", p304AP:59.8, p304LBA:67.6, p316LBA:98.8, p316LEP:190},
-            {id:26, std:"英标", stdKey:"en", type:"有缝管道", od:"2.5\"", odMm:"63.5", wtMm:"1.65", remark:"英标有缝", p304AP:75.4, p304LBA:87.1, p316LBA:124.8, p316LEP:441},
-            {id:27, std:"英标", stdKey:"en", type:"有缝管道", od:"3\"", odMm:"76.2", wtMm:"1.65", remark:"英标有缝", p304AP:89.7, p304LBA:102.7, p316LBA:149.5, p316LEP:469.5},
-            {id:28, std:"英标", stdKey:"en", type:"有缝管道", od:"4\"", odMm:"101.6", wtMm:"2.11", remark:"英标有缝", p304AP:169, p304LBA:191.1, p316LBA:270.4, p316LEP:591},
-            {id:29, std:"英标", stdKey:"en", type:"有缝管道", od:"5\"", odMm:"127", wtMm:"2.77", remark:"英标有缝", p304AP:254.8, p304LBA:299, p316LBA:421.2, p316LEP:775.5},
-            {id:30, std:"英标", stdKey:"en", type:"有缝管道", od:"6\"", odMm:"152.4", wtMm:"2.77", remark:"英标有缝", p304AP:301.6, p304LBA:354.9, p316LBA:501.8, p316LEP:873},
-            {id:31, std:"英标", stdKey:"en", type:"有缝管道", od:"8\"", odMm:"203.2", wtMm:"2.77", remark:"英标有缝", p304AP:395.2, p304LBA:466.7, p316LBA:664.3, p316LEP:1068},
-            {id:32, std:"英标", stdKey:"en", type:"有缝管道", od:"10\"", odMm:"254", wtMm:"3.65", remark:"英标有缝", p304AP:631.8, p304LBA:750.1, p316LBA:1076.4, p316LEP:1563},
-            {id:33, std:"英标", stdKey:"en", type:"有缝管道", od:"12\"", odMm:"304.8", wtMm:"3.8", remark:"英标有缝", p304AP:772.2, p304LBA:933.4, p316LBA:1340.3, p316LEP:1881}
+            {id:19, std:"英标", stdKey:"en", type:"有缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.24", remark:"英标有缝", p304LAP:19.5, p304LBA:23.4, p316LBA:31.2, p316LEP:70},
+            {id:20, std:"英标", stdKey:"en", type:"有缝管道", od:"3/4\"", odMm:"19.05", wtMm:"1.65", remark:"英标有缝", p304LAP:24.7, p304LBA:28.6, p316LBA:40.3, p316LEP:83},
+            {id:21, std:"英标", stdKey:"en", type:"有缝管道", od:"1\"", odMm:"25.4", wtMm:"1.24", remark:"英标有缝", p304LAP:24.7, p304LBA:27.3, p316LBA:39, p316LEP:85},
+            {id:22, std:"英标", stdKey:"en", type:"有缝管道", od:"1\"", odMm:"25.4", wtMm:"1.65", remark:"英标有缝", p304LAP:32.5, p304LBA:36.4, p316LBA:52, p316LEP:105},
+            {id:23, std:"英标", stdKey:"en", type:"有缝管道", od:"1.25\"", odMm:"31.75", wtMm:"1.65", remark:"英标有缝", p304LAP:37.7, p304LBA:42.9, p316LBA:62.4, p316LEP:138},
+            {id:24, std:"英标", stdKey:"en", type:"有缝管道", od:"1.5\"", odMm:"38.1", wtMm:"1.65", remark:"英标有缝", p304LAP:45.5, p304LBA:52, p316LBA:74.1, p316LEP:161},
+            {id:25, std:"英标", stdKey:"en", type:"有缝管道", od:"2\"", odMm:"50.8", wtMm:"1.65", remark:"英标有缝", p304LAP:59.8, p304LBA:67.6, p316LBA:98.8, p316LEP:190},
+            {id:26, std:"英标", stdKey:"en", type:"有缝管道", od:"2.5\"", odMm:"63.5", wtMm:"1.65", remark:"英标有缝", p304LAP:75.4, p304LBA:87.1, p316LBA:124.8, p316LEP:441},
+            {id:27, std:"英标", stdKey:"en", type:"有缝管道", od:"3\"", odMm:"76.2", wtMm:"1.65", remark:"英标有缝", p304LAP:89.7, p304LBA:102.7, p316LBA:149.5, p316LEP:469.5},
+            {id:28, std:"英标", stdKey:"en", type:"有缝管道", od:"4\"", odMm:"101.6", wtMm:"2.11", remark:"英标有缝", p304LAP:169, p304LBA:191.1, p316LBA:270.4, p316LEP:591},
+            {id:29, std:"英标", stdKey:"en", type:"有缝管道", od:"5\"", odMm:"127", wtMm:"2.77", remark:"英标有缝", p304LAP:254.8, p304LBA:299, p316LBA:421.2, p316LEP:775.5},
+            {id:30, std:"英标", stdKey:"en", type:"有缝管道", od:"6\"", odMm:"152.4", wtMm:"2.77", remark:"英标有缝", p304LAP:301.6, p304LBA:354.9, p316LBA:501.8, p316LEP:873},
+            {id:31, std:"英标", stdKey:"en", type:"有缝管道", od:"8\"", odMm:"203.2", wtMm:"2.77", remark:"英标有缝", p304LAP:395.2, p304LBA:466.7, p316LBA:664.3, p316LEP:1068},
+            {id:32, std:"英标", stdKey:"en", type:"有缝管道", od:"10\"", odMm:"254", wtMm:"3.65", remark:"英标有缝", p304LAP:631.8, p304LBA:750.1, p316LBA:1076.4, p316LEP:1563},
+            {id:33, std:"英标", stdKey:"en", type:"有缝管道", od:"12\"", odMm:"304.8", wtMm:"3.8", remark:"英标有缝", p304LAP:772.2, p304LBA:933.4, p316LBA:1340.3, p316LEP:1881}
         ];
 
         // 日标数据
         const jpPipeData = [
             // 日标-无缝管道
-            {id:35, std:"日标", stdKey:"jp", type:"无缝管道", od:"8A", odMm:"13.8", wtMm:"1.2", remark:"无缝", p304AP:28.6, p304LBA:33.8, p316LBA:39, p316LEP:96},
-            {id:36, std:"日标", stdKey:"jp", type:"无缝管道", od:"8A", odMm:"13.8", wtMm:"1.65", remark:"无缝", p304AP:36.4, p304LBA:44.2, p316LBA:48.1, p316LEP:144},
-            {id:37, std:"日标", stdKey:"jp", type:"无缝管道", od:"10A", odMm:"17.3", wtMm:"1.2", remark:"无缝", p304AP:28.6, p304LBA:33.8, p316LBA:42.9, p316LEP:126},
-            {id:38, std:"日标", stdKey:"jp", type:"无缝管道", od:"10A", odMm:"17.3", wtMm:"1.65", remark:"无缝", p304AP:36.4, p304LBA:44.2, p316LBA:57.2, p316LEP:189},
-            {id:39, std:"日标", stdKey:"jp", type:"无缝管道", od:"15A", odMm:"21.7", wtMm:"1.65", remark:"无缝", p304AP:45.5, p304LBA:55.9, p316LBA:68.9, p316LEP:195},
-            {id:40, std:"日标", stdKey:"jp", type:"无缝管道", od:"15A", odMm:"21.7", wtMm:"2.1", remark:"无缝", p304AP:54.6, p304LBA:68.9, p316LBA:84.5, p316LEP:292.5},
-            {id:41, std:"日标", stdKey:"jp", type:"无缝管道", od:"20A", odMm:"27.2", wtMm:"1.65", remark:"无缝", p304AP:58.5, p304LBA:72.8, p316LBA:83.2, p316LEP:242},
-            {id:42, std:"日标", stdKey:"jp", type:"无缝管道", od:"20A", odMm:"27.2", wtMm:"2.1", remark:"无缝", p304AP:71.5, p304LBA:89.7, p316LBA:102.7, p316LEP:363},
-            {id:43, std:"日标", stdKey:"jp", type:"无缝管道", od:"25A", odMm:"34", wtMm:"1.65", remark:"无缝", p304AP:72.8, p304LBA:91, p316LBA:107.9, p316LEP:294},
-            {id:44, std:"日标", stdKey:"jp", type:"无缝管道", od:"25A", odMm:"34", wtMm:"2.8", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:176.8, p316LEP:441},
-            {id:45, std:"日标", stdKey:"jp", type:"无缝管道", od:"32A", odMm:"42.7", wtMm:"1.65", remark:"无缝", p304AP:92.3, p304LBA:117, p316LBA:149.5, p316LEP:379},
-            {id:46, std:"日标", stdKey:"jp", type:"无缝管道", od:"32A", odMm:"42.7", wtMm:"2.8", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:247, p316LEP:568.5},
-            {id:47, std:"日标", stdKey:"jp", type:"无缝管道", od:"40A", odMm:"48.6", wtMm:"1.65", remark:"无缝", p304AP:117, p304LBA:144.3, p316LBA:178.1, p316LEP:431},
-            {id:48, std:"日标", stdKey:"jp", type:"无缝管道", od:"40A", odMm:"48.6", wtMm:"2.8", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:282.1, p316LEP:861},
-            {id:49, std:"日标", stdKey:"jp", type:"无缝管道", od:"50A", odMm:"60.5", wtMm:"1.65", remark:"无缝", p304AP:149.5, p304LBA:188.5, p316LBA:247, p316LEP:1291.5},
-            {id:50, std:"日标", stdKey:"jp", type:"无缝管道", od:"50A", odMm:"60.5", wtMm:"2.8", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:354.9, p316LEP:1420},
-            {id:51, std:"日标", stdKey:"jp", type:"无缝管道", od:"65A", odMm:"76.3", wtMm:"2.1", remark:"无缝", p304AP:253.5, p304LBA:345.8, p316LBA:403, p316LEP:1359},
-            {id:52, std:"日标", stdKey:"jp", type:"无缝管道", od:"65A", odMm:"76.3", wtMm:"3", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:1495},
-            {id:53, std:"日标", stdKey:"jp", type:"无缝管道", od:"80A", odMm:"89.1", wtMm:"2.1", remark:"无缝", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:1431},
-            {id:54, std:"日标", stdKey:"jp", type:"无缝管道", od:"80A", odMm:"89.1", wtMm:"3", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:1574},
-            {id:55, std:"日标", stdKey:"jp", type:"无缝管道", od:"100A", odMm:"114.3", wtMm:"2.1", remark:"无缝", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:1506},
-            {id:55, std:"日标", stdKey:"jp", type:"无缝管道", od:"100A", odMm:"114.3", wtMm:"3", remark:"无缝、坡口处理", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:1656},
+            {id:35, std:"日标", stdKey:"jp", type:"无缝管道", od:"8A", odMm:"13.8", wtMm:"1.2", remark:"无缝", p304LAP:28.6, p304LBA:33.8, p316LBA:39, p316LEP:96},
+            {id:36, std:"日标", stdKey:"jp", type:"无缝管道", od:"8A", odMm:"13.8", wtMm:"1.65", remark:"无缝", p304LAP:36.4, p304LBA:44.2, p316LBA:48.1, p316LEP:144},
+            {id:37, std:"日标", stdKey:"jp", type:"无缝管道", od:"10A", odMm:"17.3", wtMm:"1.2", remark:"无缝", p304LAP:28.6, p304LBA:33.8, p316LBA:42.9, p316LEP:126},
+            {id:38, std:"日标", stdKey:"jp", type:"无缝管道", od:"10A", odMm:"17.3", wtMm:"1.65", remark:"无缝", p304LAP:36.4, p304LBA:44.2, p316LBA:57.2, p316LEP:189},
+            {id:39, std:"日标", stdKey:"jp", type:"无缝管道", od:"15A", odMm:"21.7", wtMm:"1.65", remark:"无缝", p304LAP:45.5, p304LBA:55.9, p316LBA:68.9, p316LEP:195},
+            {id:40, std:"日标", stdKey:"jp", type:"无缝管道", od:"15A", odMm:"21.7", wtMm:"2.1", remark:"无缝", p304LAP:54.6, p304LBA:68.9, p316LBA:84.5, p316LEP:292.5},
+            {id:41, std:"日标", stdKey:"jp", type:"无缝管道", od:"20A", odMm:"27.2", wtMm:"1.65", remark:"无缝", p304LAP:58.5, p304LBA:72.8, p316LBA:83.2, p316LEP:242},
+            {id:42, std:"日标", stdKey:"jp", type:"无缝管道", od:"20A", odMm:"27.2", wtMm:"2.1", remark:"无缝", p304LAP:71.5, p304LBA:89.7, p316LBA:102.7, p316LEP:363},
+            {id:43, std:"日标", stdKey:"jp", type:"无缝管道", od:"25A", odMm:"34", wtMm:"1.65", remark:"无缝", p304LAP:72.8, p304LBA:91, p316LBA:107.9, p316LEP:294},
+            {id:44, std:"日标", stdKey:"jp", type:"无缝管道", od:"25A", odMm:"34", wtMm:"2.8", remark:"无缝、坡口处理", p304LAP:null, p304LBA:null, p316LBA:176.8, p316LEP:441},
+            {id:45, std:"日标", stdKey:"jp", type:"无缝管道", od:"32A", odMm:"42.7", wtMm:"1.65", remark:"无缝", p304LAP:92.3, p304LBA:117, p316LBA:149.5, p316LEP:379},
+            {id:46, std:"日标", stdKey:"jp", type:"无缝管道", od:"32A", odMm:"42.7", wtMm:"2.8", remark:"无缝、坡口处理", p304LAP:null, p304LBA:null, p316LBA:247, p316LEP:568.5},
+            {id:47, std:"日标", stdKey:"jp", type:"无缝管道", od:"40A", odMm:"48.6", wtMm:"1.65", remark:"无缝", p304LAP:117, p304LBA:144.3, p316LBA:178.1, p316LEP:431},
+            {id:48, std:"日标", stdKey:"jp", type:"无缝管道", od:"40A", odMm:"48.6", wtMm:"2.8", remark:"无缝、坡口处理", p304LAP:null, p304LBA:null, p316LBA:282.1, p316LEP:861},
+            {id:49, std:"日标", stdKey:"jp", type:"无缝管道", od:"50A", odMm:"60.5", wtMm:"1.65", remark:"无缝", p304LAP:149.5, p304LBA:188.5, p316LBA:247, p316LEP:1291.5},
+            {id:50, std:"日标", stdKey:"jp", type:"无缝管道", od:"50A", odMm:"60.5", wtMm:"2.8", remark:"无缝、坡口处理", p304LAP:null, p304LBA:null, p316LBA:354.9, p316LEP:1420},
+            {id:51, std:"日标", stdKey:"jp", type:"无缝管道", od:"65A", odMm:"76.3", wtMm:"2.1", remark:"无缝", p304LAP:253.5, p304LBA:345.8, p316LBA:403, p316LEP:1359},
+            {id:52, std:"日标", stdKey:"jp", type:"无缝管道", od:"65A", odMm:"76.3", wtMm:"3", remark:"无缝、坡口处理", p304LAP:null, p304LBA:null, p316LBA:null, p316LEP:1495},
+            {id:53, std:"日标", stdKey:"jp", type:"无缝管道", od:"80A", odMm:"89.1", wtMm:"2.1", remark:"无缝", p304LAP:null, p304LBA:null, p316LBA:null, p316LEP:1431},
+            {id:54, std:"日标", stdKey:"jp", type:"无缝管道", od:"80A", odMm:"89.1", wtMm:"3", remark:"无缝、坡口处理", p304LAP:null, p304LBA:null, p316LBA:null, p316LEP:1574},
+            {id:55, std:"日标", stdKey:"jp", type:"无缝管道", od:"100A", odMm:"114.3", wtMm:"2.1", remark:"无缝", p304LAP:null, p304LBA:null, p316LBA:null, p316LEP:1506},
+            {id:55, std:"日标", stdKey:"jp", type:"无缝管道", od:"100A", odMm:"114.3", wtMm:"3", remark:"无缝、坡口处理", p304LAP:null, p304LBA:null, p316LBA:null, p316LEP:1656},
             // 日标-有缝管道
-            {id:56, std:"日标", stdKey:"jp", type:"有缝管道", od:"15A", odMm:"21.7", wtMm:"1.65", remark:"有缝日标", p304AP:27.3, p304LBA:32.5, p316LBA:44.2, p316LEP:null},
-            {id:57, std:"日标", stdKey:"jp", type:"有缝管道", od:"15A", odMm:"21.7", wtMm:"2.1", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:null},
-            {id:58, std:"日标", stdKey:"jp", type:"有缝管道", od:"20A", odMm:"27.2", wtMm:"1.65", remark:"有缝日标", p304AP:36.4, p304LBA:42.9, p316LBA:58.5, p316LEP:122},
-            {id:59, std:"日标", stdKey:"jp", type:"有缝管道", od:"20A", odMm:"27.2", wtMm:"2.1", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:null},
-            {id:60, std:"日标", stdKey:"jp", type:"有缝管道", od:"25A", odMm:"34", wtMm:"1.65", remark:"有缝日标", p304AP:44.2, p304LBA:52, p316LBA:72.8, p316LEP:160},
-            {id:61, std:"日标", stdKey:"jp", type:"有缝管道", od:"25A", odMm:"34", wtMm:"2.8", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:null},
-            {id:62, std:"日标", stdKey:"jp", type:"有缝管道", od:"32A", odMm:"42.7", wtMm:"1.65", remark:"有缝日标", p304AP:53.3, p304LBA:63.7, p316LBA:89.7, p316LEP:200},
-            {id:63, std:"日标", stdKey:"jp", type:"有缝管道", od:"40A", odMm:"48.6", wtMm:"1.65", remark:"有缝日标", p304AP:59.8, p304LBA:71.5, p316LBA:101.4, p316LEP:250},
-            {id:64, std:"日标", stdKey:"jp", type:"有缝管道", od:"40A", odMm:"48.6", wtMm:"2.8", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:null},
-            {id:65, std:"日标", stdKey:"jp", type:"有缝管道", od:"50A", odMm:"60.5", wtMm:"1.65", remark:"有缝日标", p304AP:72.8, p304LBA:88.4, p316LBA:126.1, p316LEP:280},
-            {id:66, std:"日标", stdKey:"jp", type:"有缝管道", od:"50A", odMm:"60.5", wtMm:"2.8", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:null},
-            {id:67, std:"日标", stdKey:"jp", type:"有缝管道", od:"65A", odMm:"76.3", wtMm:"2.1", remark:"有缝日标", p304AP:119.6, p304LBA:144.3, p316LBA:204.1, p316LEP:694},
-            {id:68, std:"日标", stdKey:"jp", type:"有缝管道", od:"65A", odMm:"76.3", wtMm:"3", remark:"有缝日标", p304AP:null, p304LBA:null, p316LBA:null, p316LEP:400},
-            {id:69, std:"日标", stdKey:"jp", type:"有缝管道", od:"80A", odMm:"89.1", wtMm:"2.1", remark:"有缝日标", p304AP:150.8, p304LBA:179.4, p316LBA:244.4, p316LEP:746},
-            {id:70, std:"日标", stdKey:"jp", type:"有缝管道", od:"80A", odMm:"89.1", wtMm:"3", remark:"有缝日标", p304AP:201.5, p304LBA:235.3, p316LBA:335.4, p316LEP:888},
-            {id:71, std:"日标", stdKey:"jp", type:"有缝管道", od:"90A", odMm:"101.6", wtMm:"2.1", remark:"有缝日标", p304AP:167.7, p304LBA:195, p316LBA:275.6, p316LEP:796},
-            {id:72, std:"日标", stdKey:"jp", type:"有缝管道", od:"90A", odMm:"101.6", wtMm:"3", remark:"有缝日标", p304AP:227.5, p304LBA:265.2, p316LBA:370.5, p316LEP:960},
-            {id:73, std:"日标", stdKey:"jp", type:"有缝管道", od:"100A", odMm:"114.3", wtMm:"2.1", remark:"有缝日标", p304AP:182, p304LBA:217.1, p316LBA:300.3, p316LEP:846},
-            {id:74, std:"日标", stdKey:"jp", type:"有缝管道", od:"100A", odMm:"114.3", wtMm:"3", remark:"有缝日标", p304AP:248.3, p304LBA:296.4, p316LBA:416, p316LEP:1032},
-            {id:75, std:"日标", stdKey:"jp", type:"有缝管道", od:"125A", odMm:"139.8", wtMm:"2.8", remark:"有缝日标", p304AP:280.8, p304LBA:330.2, p316LBA:473.2, p316LEP:1126},
-            {id:76, std:"日标", stdKey:"jp", type:"有缝管道", od:"125A", odMm:"139.8", wtMm:"3.4", remark:"有缝日标", p304AP:334.1, p304LBA:393.9, p316LBA:566.8, p316LEP:1278},
-            {id:77, std:"日标", stdKey:"jp", type:"有缝管道", od:"150A", odMm:"165.2", wtMm:"2.8", remark:"有缝日标", p304AP:327.6, p304LBA:386.1, p316LBA:556.4, p316LEP:1260},
-            {id:78, std:"日标", stdKey:"jp", type:"有缝管道", od:"150A", odMm:"165.2", wtMm:"3.4", remark:"有缝日标", p304AP:391.3, p304LBA:462.8, p316LBA:666.9, p316LEP:1414},
-            {id:79, std:"日标", stdKey:"jp", type:"有缝管道", od:"200A", odMm:"216.3", wtMm:"2.8", remark:"有缝日标", p304AP:425.1, p304LBA:503.1, p316LBA:726.7, p316LEP:1508},
-            {id:80, std:"日标", stdKey:"jp", type:"有缝管道", od:"200A", odMm:"216.3", wtMm:"4", remark:"有缝日标", p304AP:590.2, p304LBA:699.4, p316LBA:1015.3, p316LEP:1966},
-            {id:81, std:"日标", stdKey:"jp", type:"有缝管道", od:"250A", odMm:"267.4", wtMm:"3.4", remark:"有缝日标", p304AP:621.4, p304LBA:738.4, p316LBA:1072.5, p316LEP:2054},
-            {id:82, std:"日标", stdKey:"jp", type:"有缝管道", od:"250A", odMm:"267.4", wtMm:"4", remark:"有缝日标", p304AP:725.4, p304LBA:861.9, p316LBA:1254.5, p316LEP:2342},
-            {id:83, std:"日标", stdKey:"jp", type:"有缝管道", od:"300A", odMm:"318.5", wtMm:"4", remark:"有缝日标", p304AP:860.6, p304LBA:1024.4, p316LBA:1492.4, p316LEP:3120},
-            {id:84, std:"日标", stdKey:"jp", type:"有缝管道", od:"300A", odMm:"318.5", wtMm:"4.5", remark:"有缝日标", p304AP:964.6, p304LBA:1146.6, p316LBA:1673.1, p316LEP:3404},
-            {id:85, std:"日标", stdKey:"jp", type:"有缝管道", od:"350A", odMm:"355.6", wtMm:"4", remark:"有缝日标", p304AP:959.4, p304LBA:1141.4, p316LBA:1665.3, p316LEP:3392},
-            {id:86, std:"日标", stdKey:"jp", type:"有缝管道", od:"350A", odMm:"355.6", wtMm:"5", remark:"有缝日标", p304AP:1189.5, p304LBA:1417, p316LBA:2011.1, p316LEP:4032},
-            {id:87, std:"日标", stdKey:"jp", type:"有缝管道", od:"400A", odMm:"406.4", wtMm:"4.5", remark:"有缝日标", p304AP:1227.2, p304LBA:1461.2, p316LBA:2134.6, p316LEP:4134},
-            {id:88, std:"日标", stdKey:"jp", type:"有缝管道", od:"400A", odMm:"406.4", wtMm:"5", remark:"有缝日标", p304AP:1358.5, p304LBA:1618.5, p316LBA:2366, p316LEP:4500},
-            {id:89, std:"日标", stdKey:"jp", type:"有缝管道", od:"450A", odMm:"457.2", wtMm:"4.5", remark:"有缝日标", p304AP:1378, p304LBA:1641.9, p316LBA:2401.1, p316LEP:4556},
-            {id:90, std:"日标", stdKey:"jp", type:"有缝管道", od:"450A", odMm:"457.2", wtMm:"5", remark:"有缝日标", p304AP:1527.5, p304LBA:1820, p316LBA:2662.4, p316LEP:4966},
-            {id:91, std:"日标", stdKey:"jp", type:"有缝管道", od:"500A", odMm:"508", wtMm:"5", remark:"有缝日标", p304AP:1696.5, p304LBA:2021.5, p316LBA:2957.5, p316LEP:5436},
-            {id:92, std:"日标", stdKey:"jp", type:"有缝管道", od:"500A", odMm:"508", wtMm:"5.5", remark:"有缝日标", p304AP:1861.6, p304LBA:2219.1, p316LBA:3248.7, p316LEP:5894}
+            {id:56, std:"日标", stdKey:"jp", type:"有缝管道", od:"15A", odMm:"21.7", wtMm:"1.65", remark:"有缝日标", p304LAP:27.3, p304LBA:32.5, p316LBA:44.2, p316LEP:null},
+            {id:57, std:"日标", stdKey:"jp", type:"有缝管道", od:"15A", odMm:"21.7", wtMm:"2.1", remark:"有缝日标", p304LAP:null, p304LBA:null, p316LBA:null, p316LEP:null},
+            {id:58, std:"日标", stdKey:"jp", type:"有缝管道", od:"20A", odMm:"27.2", wtMm:"1.65", remark:"有缝日标", p304LAP:36.4, p304LBA:42.9, p316LBA:58.5, p316LEP:122},
+            {id:59, std:"日标", stdKey:"jp", type:"有缝管道", od:"20A", odMm:"27.2", wtMm:"2.1", remark:"有缝日标", p304LAP:null, p304LBA:null, p316LBA:null, p316LEP:null},
+            {id:60, std:"日标", stdKey:"jp", type:"有缝管道", od:"25A", odMm:"34", wtMm:"1.65", remark:"有缝日标", p304LAP:44.2, p304LBA:52, p316LBA:72.8, p316LEP:160},
+            {id:61, std:"日标", stdKey:"jp", type:"有缝管道", od:"25A", odMm:"34", wtMm:"2.8", remark:"有缝日标", p304LAP:null, p304LBA:null, p316LBA:null, p316LEP:null},
+            {id:62, std:"日标", stdKey:"jp", type:"有缝管道", od:"32A", odMm:"42.7", wtMm:"1.65", remark:"有缝日标", p304LAP:53.3, p304LBA:63.7, p316LBA:89.7, p316LEP:200},
+            {id:63, std:"日标", stdKey:"jp", type:"有缝管道", od:"40A", odMm:"48.6", wtMm:"1.65", remark:"有缝日标", p304LAP:59.8, p304LBA:71.5, p316LBA:101.4, p316LEP:250},
+            {id:64, std:"日标", stdKey:"jp", type:"有缝管道", od:"40A", odMm:"48.6", wtMm:"2.8", remark:"有缝日标", p304LAP:null, p304LBA:null, p316LBA:null, p316LEP:null},
+            {id:65, std:"日标", stdKey:"jp", type:"有缝管道", od:"50A", odMm:"60.5", wtMm:"1.65", remark:"有缝日标", p304LAP:72.8, p304LBA:88.4, p316LBA:126.1, p316LEP:280},
+            {id:66, std:"日标", stdKey:"jp", type:"有缝管道", od:"50A", odMm:"60.5", wtMm:"2.8", remark:"有缝日标", p304LAP:null, p304LBA:null, p316LBA:null, p316LEP:null},
+            {id:67, std:"日标", stdKey:"jp", type:"有缝管道", od:"65A", odMm:"76.3", wtMm:"2.1", remark:"有缝日标", p304LAP:119.6, p304LBA:144.3, p316LBA:204.1, p316LEP:694},
+            {id:68, std:"日标", stdKey:"jp", type:"有缝管道", od:"65A", odMm:"76.3", wtMm:"3", remark:"有缝日标", p304LAP:null, p304LBA:null, p316LBA:null, p316LEP:400},
+            {id:69, std:"日标", stdKey:"jp", type:"有缝管道", od:"80A", odMm:"89.1", wtMm:"2.1", remark:"有缝日标", p304LAP:150.8, p304LBA:179.4, p316LBA:244.4, p316LEP:746},
+            {id:70, std:"日标", stdKey:"jp", type:"有缝管道", od:"80A", odMm:"89.1", wtMm:"3", remark:"有缝日标", p304LAP:201.5, p304LBA:235.3, p316LBA:335.4, p316LEP:888},
+            {id:71, std:"日标", stdKey:"jp", type:"有缝管道", od:"90A", odMm:"101.6", wtMm:"2.1", remark:"有缝日标", p304LAP:167.7, p304LBA:195, p316LBA:275.6, p316LEP:796},
+            {id:72, std:"日标", stdKey:"jp", type:"有缝管道", od:"90A", odMm:"101.6", wtMm:"3", remark:"有缝日标", p304LAP:227.5, p304LBA:265.2, p316LBA:370.5, p316LEP:960},
+            {id:73, std:"日标", stdKey:"jp", type:"有缝管道", od:"100A", odMm:"114.3", wtMm:"2.1", remark:"有缝日标", p304LAP:182, p304LBA:217.1, p316LBA:300.3, p316LEP:846},
+            {id:74, std:"日标", stdKey:"jp", type:"有缝管道", od:"100A", odMm:"114.3", wtMm:"3", remark:"有缝日标", p304LAP:248.3, p304LBA:296.4, p316LBA:416, p316LEP:1032},
+            {id:75, std:"日标", stdKey:"jp", type:"有缝管道", od:"125A", odMm:"139.8", wtMm:"2.8", remark:"有缝日标", p304LAP:280.8, p304LBA:330.2, p316LBA:473.2, p316LEP:1126},
+            {id:76, std:"日标", stdKey:"jp", type:"有缝管道", od:"125A", odMm:"139.8", wtMm:"3.4", remark:"有缝日标", p304LAP:334.1, p304LBA:393.9, p316LBA:566.8, p316LEP:1278},
+            {id:77, std:"日标", stdKey:"jp", type:"有缝管道", od:"150A", odMm:"165.2", wtMm:"2.8", remark:"有缝日标", p304LAP:327.6, p304LBA:386.1, p316LBA:556.4, p316LEP:1260},
+            {id:78, std:"日标", stdKey:"jp", type:"有缝管道", od:"150A", odMm:"165.2", wtMm:"3.4", remark:"有缝日标", p304LAP:391.3, p304LBA:462.8, p316LBA:666.9, p316LEP:1414},
+            {id:79, std:"日标", stdKey:"jp", type:"有缝管道", od:"200A", odMm:"216.3", wtMm:"2.8", remark:"有缝日标", p304LAP:425.1, p304LBA:503.1, p316LBA:726.7, p316LEP:1508},
+            {id:80, std:"日标", stdKey:"jp", type:"有缝管道", od:"200A", odMm:"216.3", wtMm:"4", remark:"有缝日标", p304LAP:590.2, p304LBA:699.4, p316LBA:1015.3, p316LEP:1966},
+            {id:81, std:"日标", stdKey:"jp", type:"有缝管道", od:"250A", odMm:"267.4", wtMm:"3.4", remark:"有缝日标", p304LAP:621.4, p304LBA:738.4, p316LBA:1072.5, p316LEP:2054},
+            {id:82, std:"日标", stdKey:"jp", type:"有缝管道", od:"250A", odMm:"267.4", wtMm:"4", remark:"有缝日标", p304LAP:725.4, p304LBA:861.9, p316LBA:1254.5, p316LEP:2342},
+            {id:83, std:"日标", stdKey:"jp", type:"有缝管道", od:"300A", odMm:"318.5", wtMm:"4", remark:"有缝日标", p304LAP:860.6, p304LBA:1024.4, p316LBA:1492.4, p316LEP:3120},
+            {id:84, std:"日标", stdKey:"jp", type:"有缝管道", od:"300A", odMm:"318.5", wtMm:"4.5", remark:"有缝日标", p304LAP:964.6, p304LBA:1146.6, p316LBA:1673.1, p316LEP:3404},
+            {id:85, std:"日标", stdKey:"jp", type:"有缝管道", od:"350A", odMm:"355.6", wtMm:"4", remark:"有缝日标", p304LAP:959.4, p304LBA:1141.4, p316LBA:1665.3, p316LEP:3392},
+            {id:86, std:"日标", stdKey:"jp", type:"有缝管道", od:"350A", odMm:"355.6", wtMm:"5", remark:"有缝日标", p304LAP:1189.5, p304LBA:1417, p316LBA:2011.1, p316LEP:4032},
+            {id:87, std:"日标", stdKey:"jp", type:"有缝管道", od:"400A", odMm:"406.4", wtMm:"4.5", remark:"有缝日标", p304LAP:1227.2, p304LBA:1461.2, p316LBA:2134.6, p316LEP:4134},
+            {id:88, std:"日标", stdKey:"jp", type:"有缝管道", od:"400A", odMm:"406.4", wtMm:"5", remark:"有缝日标", p304LAP:1358.5, p304LBA:1618.5, p316LBA:2366, p316LEP:4500},
+            {id:89, std:"日标", stdKey:"jp", type:"有缝管道", od:"450A", odMm:"457.2", wtMm:"4.5", remark:"有缝日标", p304LAP:1378, p304LBA:1641.9, p316LBA:2401.1, p316LEP:4556},
+            {id:90, std:"日标", stdKey:"jp", type:"有缝管道", od:"450A", odMm:"457.2", wtMm:"5", remark:"有缝日标", p304LAP:1527.5, p304LBA:1820, p316LBA:2662.4, p316LEP:4966},
+            {id:91, std:"日标", stdKey:"jp", type:"有缝管道", od:"500A", odMm:"508", wtMm:"5", remark:"有缝日标", p304LAP:1696.5, p304LBA:2021.5, p316LBA:2957.5, p316LEP:5436},
+            {id:92, std:"日标", stdKey:"jp", type:"有缝管道", od:"500A", odMm:"508", wtMm:"5.5", remark:"有缝日标", p304LAP:1861.6, p304LBA:2219.1, p316LBA:3248.7, p316LEP:5894}
         ];
         // DN数据
         const dnPipeData = [
             // DN-无缝管道
-            {id:93, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN15", odMm:"21.3", wtMm:"1.6", remark:"无缝", p304AP:45.33, p304LBA:48, p316LBA:64, p316LEP:null},
-            {id:94, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN15", odMm:"21.3", wtMm:"2.1", remark:"无缝", p304AP:56, p304LBA:62.67, p316LBA:80, p316LEP:null},
-            {id:95, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN20", odMm:"26.9", wtMm:"1.6", remark:"无缝", p304AP:56, p304LBA:57.33, p316LBA:78.67, p316LEP:null},
-            {id:96, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN20", odMm:"26.9", wtMm:"2.1", remark:"无缝", p304AP:70.67, p304LBA:77.33, p316LBA:100, p316LEP:null},
-            {id:97, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN25", odMm:"33.7", wtMm:"1.6", remark:"无缝", p304AP:73.33, p304LBA:80, p316LBA:102.67, p316LEP:null},
-            {id:98, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN25", odMm:"33.7", wtMm:"2.8", remark:"无缝", p304AP:113.33, p304LBA:129.33, p316LBA:168, p316LEP:null},
-            {id:99, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN32", odMm:"42.4", wtMm:"1.6", remark:"无缝", p304AP:90.67, p304LBA:100, p316LBA:130.67, p316LEP:null},
-            {id:100, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN32", odMm:"42.4", wtMm:"2.8", remark:"无缝", p304AP:150.67, p304LBA:166.67, p316LBA:214.67, p316LEP:null},
-            {id:101, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN40", odMm:"48.3", wtMm:"1.6", remark:"无缝", p304AP:104, p304LBA:110.67, p316LBA:149.33, p316LEP:null},
-            {id:102, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN40", odMm:"48.3", wtMm:"2.8", remark:"无缝", p304AP:165, p304LBA:190.67, p316LBA:246.67, p316LEP:null},
-            {id:103, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN50", odMm:"60.3", wtMm:"1.6", remark:"无缝", p304AP:132, p304LBA:157.33, p316LBA:202.67, p316LEP:null},
-            {id:104, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN50", odMm:"60.3", wtMm:"2.8", remark:"无缝", p304AP:222.67, p304LBA:250.67, p316LBA:321.33, p316LEP:null},
-            {id:105, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN65", odMm:"76.1", wtMm:"2", remark:"无缝", p304AP:233.33, p304LBA:250.67, p316LBA:365.33, p316LEP:null},
-            {id:106, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN65", odMm:"76.1", wtMm:"3", remark:"无缝", p304AP:334.67, p304LBA:441.33, p316LBA:536, p316LEP:null},
-            {id:107, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN80", odMm:"88.9", wtMm:"2", remark:"无缝", p304AP:266.67, p304LBA:344, p316LBA:428, p316LEP:null},
-            {id:108, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN80", odMm:"88.9", wtMm:"3", remark:"无缝", p304AP:390.67, p304LBA:517.33, p316LBA:628, p316LEP:null},
-            {id:109, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN90", odMm:"101.6", wtMm:"2", remark:"无缝", p304AP:304, p304LBA:401.33, p316LBA:490.67, p316LEP:null},
-            {id:110, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN90", odMm:"101.6", wtMm:"3", remark:"无缝", p304AP:449.33, p304LBA:593.33, p316LBA:724, p316LEP:null},
-            {id:111, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN100", odMm:"114.3", wtMm:"2", remark:"无缝", p304AP:342.67, p304LBA:450.67, p316LBA:552, p316LEP:null},
-            {id:112, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN100", odMm:"114.3", wtMm:"3", remark:"无缝", p304AP:506.67, p304LBA:669.33, p316LBA:824, p316LEP:null},
-            {id:113, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN125", odMm:"139.7", wtMm:"2.9", remark:"无缝", p304AP:606.67, p304LBA:834.67, p316LBA:1008, p316LEP:null},
-            {id:114, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN125", odMm:"139.7", wtMm:"3.4", remark:"无缝", p304AP:706.67, p304LBA:974.67, p316LBA:1180, p316LEP:null},
-            {id:115, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN150", odMm:"168.3", wtMm:"2.9", remark:"无缝", p304AP:762.67, p304LBA:1024, p316LBA:1254.67, p316LEP:null},
-            {id:116, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN150", odMm:"168.3", wtMm:"3.4", remark:"无缝", p304AP:888, p304LBA:1214.67, p316LBA:1461.33, p316LEP:null},
-            {id:117, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN200", odMm:"219.1", wtMm:"2.9", remark:"无缝", p304AP:1044, p304LBA:1418.67, p316LBA:1700, p316LEP:null},
-            {id:118, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN200", odMm:"219.1", wtMm:"4", remark:"无缝", p304AP:1441.33, p304LBA:1945.33, p316LBA:2333.33, p316LEP:null},
+            {id:93, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN15", odMm:"21.3", wtMm:"1.6", remark:"无缝", p304LAP:45.33, p304LBA:48, p316LBA:64, p316LEP:null},
+            {id:94, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN15", odMm:"21.3", wtMm:"2.1", remark:"无缝", p304LAP:56, p304LBA:62.67, p316LBA:80, p316LEP:null},
+            {id:95, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN20", odMm:"26.9", wtMm:"1.6", remark:"无缝", p304LAP:56, p304LBA:57.33, p316LBA:78.67, p316LEP:null},
+            {id:96, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN20", odMm:"26.9", wtMm:"2.1", remark:"无缝", p304LAP:70.67, p304LBA:77.33, p316LBA:100, p316LEP:null},
+            {id:97, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN25", odMm:"33.7", wtMm:"1.6", remark:"无缝", p304LAP:73.33, p304LBA:80, p316LBA:102.67, p316LEP:null},
+            {id:98, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN25", odMm:"33.7", wtMm:"2.8", remark:"无缝", p304LAP:113.33, p304LBA:129.33, p316LBA:168, p316LEP:null},
+            {id:99, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN32", odMm:"42.4", wtMm:"1.6", remark:"无缝", p304LAP:90.67, p304LBA:100, p316LBA:130.67, p316LEP:null},
+            {id:100, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN32", odMm:"42.4", wtMm:"2.8", remark:"无缝", p304LAP:150.67, p304LBA:166.67, p316LBA:214.67, p316LEP:null},
+            {id:101, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN40", odMm:"48.3", wtMm:"1.6", remark:"无缝", p304LAP:104, p304LBA:110.67, p316LBA:149.33, p316LEP:null},
+            {id:102, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN40", odMm:"48.3", wtMm:"2.8", remark:"无缝", p304LAP:165, p304LBA:190.67, p316LBA:246.67, p316LEP:null},
+            {id:103, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN50", odMm:"60.3", wtMm:"1.6", remark:"无缝", p304LAP:132, p304LBA:157.33, p316LBA:202.67, p316LEP:null},
+            {id:104, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN50", odMm:"60.3", wtMm:"2.8", remark:"无缝", p304LAP:222.67, p304LBA:250.67, p316LBA:321.33, p316LEP:null},
+            {id:105, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN65", odMm:"76.1", wtMm:"2", remark:"无缝", p304LAP:233.33, p304LBA:250.67, p316LBA:365.33, p316LEP:null},
+            {id:106, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN65", odMm:"76.1", wtMm:"3", remark:"无缝", p304LAP:334.67, p304LBA:441.33, p316LBA:536, p316LEP:null},
+            {id:107, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN80", odMm:"88.9", wtMm:"2", remark:"无缝", p304LAP:266.67, p304LBA:344, p316LBA:428, p316LEP:null},
+            {id:108, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN80", odMm:"88.9", wtMm:"3", remark:"无缝", p304LAP:390.67, p304LBA:517.33, p316LBA:628, p316LEP:null},
+            {id:109, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN90", odMm:"101.6", wtMm:"2", remark:"无缝", p304LAP:304, p304LBA:401.33, p316LBA:490.67, p316LEP:null},
+            {id:110, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN90", odMm:"101.6", wtMm:"3", remark:"无缝", p304LAP:449.33, p304LBA:593.33, p316LBA:724, p316LEP:null},
+            {id:111, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN100", odMm:"114.3", wtMm:"2", remark:"无缝", p304LAP:342.67, p304LBA:450.67, p316LBA:552, p316LEP:null},
+            {id:112, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN100", odMm:"114.3", wtMm:"3", remark:"无缝", p304LAP:506.67, p304LBA:669.33, p316LBA:824, p316LEP:null},
+            {id:113, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN125", odMm:"139.7", wtMm:"2.9", remark:"无缝", p304LAP:606.67, p304LBA:834.67, p316LBA:1008, p316LEP:null},
+            {id:114, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN125", odMm:"139.7", wtMm:"3.4", remark:"无缝", p304LAP:706.67, p304LBA:974.67, p316LBA:1180, p316LEP:null},
+            {id:115, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN150", odMm:"168.3", wtMm:"2.9", remark:"无缝", p304LAP:762.67, p304LBA:1024, p316LBA:1254.67, p316LEP:null},
+            {id:116, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN150", odMm:"168.3", wtMm:"3.4", remark:"无缝", p304LAP:888, p304LBA:1214.67, p316LBA:1461.33, p316LEP:null},
+            {id:117, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN200", odMm:"219.1", wtMm:"2.9", remark:"无缝", p304LAP:1044, p304LBA:1418.67, p316LBA:1700, p316LEP:null},
+            {id:118, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN200", odMm:"219.1", wtMm:"4", remark:"无缝", p304LAP:1441.33, p304LBA:1945.33, p316LBA:2333.33, p316LEP:null},
             // DN-有缝管道
-            {id:119, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN32", odMm:"42.2", wtMm:"1.65", remark:"有缝", p304AP:55.86, p304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null,  p316LEP:null},
-            {id:120, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN32", odMm:"42.2", wtMm:"2.77", remark:"有缝", p304AP:92.59, p304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null, p316LEP:null},
-            {id:121, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN40", odMm:"48.3", wtMm:"1.65", remark:"有缝", p304AP:63.68, p304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null, p316LEP:null},
-            {id:122, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN40", odMm:"48.3", wtMm:"2.77", remark:"有缝", p304AP:106.37, pp304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null, p316LEP:null},
-            {id:123, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN50", odMm:"60.3", wtMm:"1.65", remark:"有缝", p304AP:79.04, p304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null, p316LEP:null},
-            {id:124, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN50", odMm:"60.3", wtMm:"2.77", remark:"有缝", p304AP:133.49, p304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null, p316LEP:null},
-            {id:125, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN65", odMm:"76.1", wtMm:"2", remark:"有缝", p304AP:125.46, p304LBA:143.07,  p304LEP:168.1, p316LAP:183.29, p316LBA:199.97, p316LEP:227.97},
-            {id:126, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN65", odMm:"76.1", wtMm:"3", remark:"有缝", p304AP:177.12, p304LBA:202.38, p304LEP:238.31, p316LAP:260.09, p316LBA:284.03, p316LEP:324.2},
-            {id:127, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN80", odMm:"88.9", wtMm:"2", remark:"有缝", p304AP:146.04, p304LBA:166.69, p304LEP:196.07, p316LAP:213.88, p316LBA:233.45, p316LEP:266.3},
-            {id:128, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN80", odMm:"88.9", wtMm:"3", remark:"有缝", p304AP:207.05, p304LBA:236.75, p304LEP:278.98, p316LAP:304.59, p316LBA:332.73, p316LEP:379.96},
-            {id:129, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN90", odMm:"101.6", wtMm:"2", remark:"有缝", p304AP:166.45, p304LBA:190.13, p304LEP:223.81, p316LAP:244.23, p316LBA:266.67, p316LEP:304.33},
-            {id:130, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN90", odMm:"101.6", wtMm:"3", remark:"有缝", p304AP:236.75, p304LBA:270.84, p304LEP:319.33, p316LAP:348.74, p316LBA:381.05, p316LEP:435.28},
-            {id:131, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN100", odMm:"114.3", wtMm:"2", remark:"有缝", p304AP:186.87, p304LBA:213.57, p304LEP:251.55, p316LAP:274.59, p316LBA:299.89, p316LEP:342.36},
-            {id:132, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN100", odMm:"114.3", wtMm:"3", remark:"有缝", p304AP:266.44, p304LBA:304.94, p304LEP:359.69, p316LAP:392.89, p316LBA:429.38, p316LEP:490.6},
-            {id:133, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN125", odMm:"139.7", wtMm:"2.9", remark:"有缝", p304AP:332.5, p304LBA:379.79, p304LEP:447.07, p316LAP:487.86, p316LBA:532.68, p316LEP:607.9},
-            {id:134, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN125", odMm:"139.7", wtMm:"3.4", remark:"有缝", p304AP:390.68, p304LBA:413.27, p304LEP:526.13, p316LAP:574.35, p316LBA:580.12, p316LEP:716.28},
-            {id:135, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN150", odMm:"168.3", wtMm:"2.9", remark:"有缝", p304AP:399.37, p304LBA:429.38, p304LEP:537.94, p316LAP:587.28, p316LBA:602.95, p316LEP:732.48},
-            {id:136, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN150", odMm:"168.3", wtMm:"3.4", remark:"有缝", p304AP:470.09, p304LBA:497.25, p304LEP:634.04, p316LAP:692.42, p316LBA:699.14, p316LEP:864.21},
-            {id:137, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN200", odMm:"219.1", wtMm:"2.9", remark:"有缝", p304AP:518.15, p304LBA:557.24, p304LEP:699.36, p316LAP:763.88, p316LBA:784.15, p316LEP:953.75},
-            {id:138, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN200", odMm:"219.1", wtMm:"4", remark:"有缝", p304AP:703.6, p304LBA:770.57, p304LEP:951.38, p316LAP:1039.6, p316LBA:1086.49, p316LEP:1299.22},
-            {id:139, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN250", odMm:"273", wtMm:"3.6", remark:"有缝", p304AP:799.56, p304LBA:871.56, p304LEP:1081.78, p316LAP:1182.26, p316LBA:1229.62, p316LEP:1477.97},
-            {id:140, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN250", odMm:"273", wtMm:"4", remark:"有缝", p304AP:876.9, p304LBA:960.5, p304LEP:1186.87, p316LAP:1297.24, p316LBA:1355.65, p316LEP:1622.04},
-            {id:141, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN300", odMm:"323.9", wtMm:"4", remark:"有缝", p304AP:1040.54, p304LBA:1139.85, p304LEP:1409.26, p316LAP:1540.55, p316LBA:1609.83, p316LEP:1926.89},
-            {id:142, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN300", odMm:"323.9", wtMm:"4.5", remark:"有缝", p304AP:1132.52, p304LBA:1298.37, p304LEP:1534.25, p316LAP:1677.3, p316LBA:1834.48, p316LEP:2098.24},
-            {id:143, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN350", odMm:"355.6", wtMm:"4", remark:"有缝", p304AP:1142.46, p304LBA:1251.55, p304LEP:1547.76, p316LAP:1692.07, p316LBA:1768.13, p316LEP:2116.75},
-            {id:144, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN350", odMm:"355.6", wtMm:"5", remark:"有缝", p304AP:1420.32, p304LBA:1542, p304LEP:1925.36, p316LAP:2105.19, p316LBA:2179.76, p316LEP:2634.75},
-            {id:145, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN400", odMm:"406.4", wtMm:"4", remark:"有缝", p304AP:1305.78, p304LBA:1430.55, p304LEP:1769.71, p316LAP:1934.9, p316LBA:2021.82, p316LEP:2421},
-            {id:146, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN400", odMm:"406.4", wtMm:"5", remark:"有缝", p304AP:1624.48, p304LBA:1763.62, p304LEP:2202.8, p316LAP:2408.72, p316LBA:2493.84, p316LEP:3014.69},
-            {id:147, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN450", odMm:"457.2", wtMm:"4", remark:"有缝", p304AP:1469.11, p304LBA:1609.56, p304LEP:1991.66, p316LAP:2177.72, p316LBA:2275.5, p316LEP:2725.26},
-            {id:148, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN450", odMm:"457.2", wtMm:"5", remark:"有缝", p304AP:1828.63, p304LBA:1985.25, p304LEP:2480.23, p316LAP:2712.25, p316LBA:2807.93, p316LEP:3395},
-            {id:149, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN500", odMm:"508", wtMm:"5", remark:"有缝", p304AP:2032.79, p304LBA:2206.87, p304LEP:2757.67, p316LAP:3015.78, p316LBA:3122.01, p316LEP:3775.32},
-            {id:150, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN500", odMm:"508", wtMm:"5.6", remark:"有缝", p304AP:2214.18, p304LBA:2540.31, p304LEP:3004.18, p316LAP:3285.47, p316LBA:3594.56, p316LEP:4113.23},
+            {id:119, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN32", odMm:"42.2", wtMm:"1.65", remark:"有缝", p304LAP:55.86, p304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null,  p316LEP:null},
+            {id:120, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN32", odMm:"42.2", wtMm:"2.77", remark:"有缝", p304LAP:92.59, p304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null, p316LEP:null},
+            {id:121, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN40", odMm:"48.3", wtMm:"1.65", remark:"有缝", p304LAP:63.68, p304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null, p316LEP:null},
+            {id:122, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN40", odMm:"48.3", wtMm:"2.77", remark:"有缝", p304LAP:106.37, pp304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null, p316LEP:null},
+            {id:123, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN50", odMm:"60.3", wtMm:"1.65", remark:"有缝", p304LAP:79.04, p304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null, p316LEP:null},
+            {id:124, std:"DN", stdKey:"dn", type:"无缝管道", od:"DN50", odMm:"60.3", wtMm:"2.77", remark:"有缝", p304LAP:133.49, p304LBA:null, p304LEP:null, p316LAP:null, p316LBA:null, p316LEP:null},
+            {id:125, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN65", odMm:"76.1", wtMm:"2", remark:"有缝", p304LAP:125.46, p304LBA:143.07,  p304LEP:168.1, p316LAP:183.29, p316LBA:199.97, p316LEP:227.97},
+            {id:126, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN65", odMm:"76.1", wtMm:"3", remark:"有缝", p304LAP:177.12, p304LBA:202.38, p304LEP:238.31, p316LAP:260.09, p316LBA:284.03, p316LEP:324.2},
+            {id:127, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN80", odMm:"88.9", wtMm:"2", remark:"有缝", p304LAP:146.04, p304LBA:166.69, p304LEP:196.07, p316LAP:213.88, p316LBA:233.45, p316LEP:266.3},
+            {id:128, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN80", odMm:"88.9", wtMm:"3", remark:"有缝", p304LAP:207.05, p304LBA:236.75, p304LEP:278.98, p316LAP:304.59, p316LBA:332.73, p316LEP:379.96},
+            {id:129, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN90", odMm:"101.6", wtMm:"2", remark:"有缝", p304LAP:166.45, p304LBA:190.13, p304LEP:223.81, p316LAP:244.23, p316LBA:266.67, p316LEP:304.33},
+            {id:130, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN90", odMm:"101.6", wtMm:"3", remark:"有缝", p304LAP:236.75, p304LBA:270.84, p304LEP:319.33, p316LAP:348.74, p316LBA:381.05, p316LEP:435.28},
+            {id:131, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN100", odMm:"114.3", wtMm:"2", remark:"有缝", p304LAP:186.87, p304LBA:213.57, p304LEP:251.55, p316LAP:274.59, p316LBA:299.89, p316LEP:342.36},
+            {id:132, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN100", odMm:"114.3", wtMm:"3", remark:"有缝", p304LAP:266.44, p304LBA:304.94, p304LEP:359.69, p316LAP:392.89, p316LBA:429.38, p316LEP:490.6},
+            {id:133, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN125", odMm:"139.7", wtMm:"2.9", remark:"有缝", p304LAP:332.5, p304LBA:379.79, p304LEP:447.07, p316LAP:487.86, p316LBA:532.68, p316LEP:607.9},
+            {id:134, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN125", odMm:"139.7", wtMm:"3.4", remark:"有缝", p304LAP:390.68, p304LBA:413.27, p304LEP:526.13, p316LAP:574.35, p316LBA:580.12, p316LEP:716.28},
+            {id:135, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN150", odMm:"168.3", wtMm:"2.9", remark:"有缝", p304LAP:399.37, p304LBA:429.38, p304LEP:537.94, p316LAP:587.28, p316LBA:602.95, p316LEP:732.48},
+            {id:136, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN150", odMm:"168.3", wtMm:"3.4", remark:"有缝", p304LAP:470.09, p304LBA:497.25, p304LEP:634.04, p316LAP:692.42, p316LBA:699.14, p316LEP:864.21},
+            {id:137, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN200", odMm:"219.1", wtMm:"2.9", remark:"有缝", p304LAP:518.15, p304LBA:557.24, p304LEP:699.36, p316LAP:763.88, p316LBA:784.15, p316LEP:953.75},
+            {id:138, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN200", odMm:"219.1", wtMm:"4", remark:"有缝", p304LAP:703.6, p304LBA:770.57, p304LEP:951.38, p316LAP:1039.6, p316LBA:1086.49, p316LEP:1299.22},
+            {id:139, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN250", odMm:"273", wtMm:"3.6", remark:"有缝", p304LAP:799.56, p304LBA:871.56, p304LEP:1081.78, p316LAP:1182.26, p316LBA:1229.62, p316LEP:1477.97},
+            {id:140, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN250", odMm:"273", wtMm:"4", remark:"有缝", p304LAP:876.9, p304LBA:960.5, p304LEP:1186.87, p316LAP:1297.24, p316LBA:1355.65, p316LEP:1622.04},
+            {id:141, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN300", odMm:"323.9", wtMm:"4", remark:"有缝", p304LAP:1040.54, p304LBA:1139.85, p304LEP:1409.26, p316LAP:1540.55, p316LBA:1609.83, p316LEP:1926.89},
+            {id:142, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN300", odMm:"323.9", wtMm:"4.5", remark:"有缝", p304LAP:1132.52, p304LBA:1298.37, p304LEP:1534.25, p316LAP:1677.3, p316LBA:1834.48, p316LEP:2098.24},
+            {id:143, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN350", odMm:"355.6", wtMm:"4", remark:"有缝", p304LAP:1142.46, p304LBA:1251.55, p304LEP:1547.76, p316LAP:1692.07, p316LBA:1768.13, p316LEP:2116.75},
+            {id:144, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN350", odMm:"355.6", wtMm:"5", remark:"有缝", p304LAP:1420.32, p304LBA:1542, p304LEP:1925.36, p316LAP:2105.19, p316LBA:2179.76, p316LEP:2634.75},
+            {id:145, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN400", odMm:"406.4", wtMm:"4", remark:"有缝", p304LAP:1305.78, p304LBA:1430.55, p304LEP:1769.71, p316LAP:1934.9, p316LBA:2021.82, p316LEP:2421},
+            {id:146, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN400", odMm:"406.4", wtMm:"5", remark:"有缝", p304LAP:1624.48, p304LBA:1763.62, p304LEP:2202.8, p316LAP:2408.72, p316LBA:2493.84, p316LEP:3014.69},
+            {id:147, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN450", odMm:"457.2", wtMm:"4", remark:"有缝", p304LAP:1469.11, p304LBA:1609.56, p304LEP:1991.66, p316LAP:2177.72, p316LBA:2275.5, p316LEP:2725.26},
+            {id:148, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN450", odMm:"457.2", wtMm:"5", remark:"有缝", p304LAP:1828.63, p304LBA:1985.25, p304LEP:2480.23, p316LAP:2712.25, p316LBA:2807.93, p316LEP:3395},
+            {id:149, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN500", odMm:"508", wtMm:"5", remark:"有缝", p304LAP:2032.79, p304LBA:2206.87, p304LEP:2757.67, p316LAP:3015.78, p316LBA:3122.01, p316LEP:3775.32},
+            {id:150, std:"DN", stdKey:"dn", type:"有缝管道", od:"DN500", odMm:"508", wtMm:"5.6", remark:"有缝", p304LAP:2214.18, p304LBA:2540.31, p304LEP:3004.18, p316LAP:3285.47, p316LBA:3594.56, p316LEP:4113.23},
         ];
 
         // 合并所有数据
@@ -512,8 +514,10 @@
         const detailSteel = document.getElementById('detail-steel');
         const detailPrice = document.getElementById('detail-price');
         const detailSource = document.getElementById('detail-source');
-        const detail304ap = document.getElementById('detail-304ap');
+        const detail304lap = document.getElementById('detail-304lap');
         const detail304lba = document.getElementById('detail-304lba');
+        const detail304lep = document.getElementById('detail-304lep');
+        const detail316lap = document.getElementById('detail-316lap');
         const detail316lba = document.getElementById('detail-316lba');
         const detail316lep = document.getElementById('detail-316lep');
         
@@ -665,10 +669,10 @@
 
             // 下载全量数据
             downloadAllBtn.addEventListener('click', function() {
-                let csvContent = "序号,标准类型,管道类型,外径规格,外径(mm),壁厚(mm),备注,304AP单价(元),304L BA单价(元),316L BA单价(元),316L EP单价(元)\n";
+                let csvContent = "序号,标准类型,管道类型,外径规格,外径(mm),壁厚(mm),备注,304L AP单价(元),304L BA单价(元),304L EP单价(元),316L AP单价(元),316L BA单价(元),316L EP单价(元)\n";
                 
                 allPipeData.forEach((item, index) => {
-                    csvContent += `${index + 1},${item.std},${item.type},${item.od},${item.odMm},${item.wtMm},${item.remark || ''},${item.p304AP || ''},${item.p304LBA || ''},${item.p316LBA || ''},${item.p316LEP || ''}\n`;
+                    csvContent += `${index + 1},${item.std},${item.type},${item.od},${item.odMm},${item.wtMm},${item.remark || ''},${item.p304LAP || ''},${item.p304LBA || ''},${item.p304LEP || ''},${item.p316LAP || ''},${item.p316LBA || ''},${item.p316LEP || ''}\n`;
                 });
                 
                 const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -763,8 +767,10 @@
             
             allPipeData.forEach(item => {
                 if (item.stdKey === stdKey && item.type === type) {
-                    if (item.p304AP !== null && item.p304AP !== undefined) steelTypes.add('304AP');
+                    if (item.p304LAP !== null && item.p304LAP !== undefined) steelTypes.add('304LAP');
                     if (item.p304LBA !== null && item.p304LBA !== undefined) steelTypes.add('304LBA');
+                    if (item.p304LEP !== null && item.p304LEP !== undefined) steelTypes.add('304LEP');
+                    if (item.p316LAP !== null && item.p316LAP !== undefined) steelTypes.add('316LAP');
                     if (item.p316LBA !== null && item.p316LBA !== undefined) steelTypes.add('316LBA');
                     if (item.p316LEP !== null && item.p316LEP !== undefined) steelTypes.add('316LEP');
                 }
@@ -775,7 +781,10 @@
             Array.from(steelTypes).forEach(steel => {
                 const option = document.createElement('option');
                 option.value = steel;
-                option.textContent = steel === '304LBA' ? '304L BA' : 
+                option.textContent = steel === '304LAP' ? '304L AP' : 
+                                 steel === '304LBA' ? '316L BA' : 
+                                 steel === '304LEP' ? '316L EP' : 
+                                 steel === '316LAP' ? '316L AP' : 
                                  steel === '316LBA' ? '316L BA' : 
                                  steel === '316LEP' ? '316L EP' : steel;
                 steelTypeSelect.appendChild(option);
@@ -789,10 +798,14 @@
                 
                 // 根据钢材类型过滤有数据的外径规格
                 switch(steel) {
-                    case '304AP':
-                        return item.p304AP !== null && item.p304AP !== undefined;
+                    case '304LAP':
+                        return item.p304LAP !== null && item.p304LAP !== undefined;
                     case '304LBA':
                         return item.p304LBA !== null && item.p304LBA !== undefined;
+                    case '304LEP':
+                        return item.p304LEP !== null && item.p304LEP !== undefined;
+                    case '316LAP':
+                        return item.p316LAP !== null && item.p316LAP !== undefined;
                     case '316LBA':
                         return item.p316LBA !== null && item.p316LBA !== undefined;
                     case '316LEP':
@@ -819,10 +832,14 @@
                 
                 // 根据钢材类型过滤有数据的壁厚规格
                 switch(steel) {
-                    case '304AP':
-                        return item.p304AP !== null && item.p304AP !== undefined;
+                    case '304LAP':
+                        return item.p304LAP !== null && item.p304LAP !== undefined;
                     case '304LBA':
                         return item.p304LBA !== null && item.p304LBA !== undefined;
+                    case '304LEP':
+                        return item.p304LEP !== null && item.p304LEP !== undefined;
+                    case '316LAP':
+                        return item.p316LAP !== null && item.p316LAP !== undefined;
                     case '316LBA':
                         return item.p316LBA !== null && item.p316LBA !== undefined;
                     case '316LEP':
@@ -851,10 +868,14 @@
             if (!item) return null;
             
             switch(steel) {
-                case '304AP':
-                    return item.p304AP;
+                case '304LAP':
+                    return item.p304LAP;
                 case '304LBA':
                     return item.p304LBA;
+                case '304LEP':
+                    return item.p304LEP;
+                case '316LAP':
+                    return item.p316LAP;
                 case '316LBA':
                     return item.p316LBA;
                 case '316LEP':
@@ -879,15 +900,19 @@
             detailOdMm.textContent = item.odMm;
             detailWtMm.textContent = item.wtMm;
             detailRemark.textContent = item.remark || '无';
-            detailSteel.textContent = steel === '304LBA' ? '304L BA' : 
+            detailSteel.textContent = steel === '304LAP' ? '304L AP' : 
+                                     steel === '304LBA' ? '304L BA' : 
+                                     steel === '316LAP' ? '316L AP' : 
                                      steel === '316LBA' ? '316L BA' : 
                                      steel === '316LEP' ? '316L EP' : steel;
             detailPrice.textContent = price + ' 元';
             detailSource.textContent = '系统内置数据库 v5.0';
             
             // 其他材质价格
-            detail304ap.textContent = item.p304AP || '-';
+            detail304lap.textContent = item.p304LAP || '-';
             detail304lba.textContent = item.p304LBA || '-';
+            detail304lep.textContent = item.p304LEP || '-';
+            detail316lap.textContent = item.p316LAP || '-';
             detail316lba.textContent = item.p316LBA || '-';
             detail316lep.textContent = item.p316LEP || '-';
             
@@ -924,8 +949,10 @@
         function addToHistory(stdKey, type, od, wt, steel, price) {
             const stdMap = {en: '英标', jp: '日标', dn: 'DN'};
             const steelNameMap = {
-                '304AP': '304AP',
+                '304LAP': '304L AP',
                 '304LBA': '304L BA',
+                '304LEP': '304L EP',
+                '316LAP': '316L AP',
                 '316LBA': '316L BA',
                 '316LEP': '316L EP'
             };
